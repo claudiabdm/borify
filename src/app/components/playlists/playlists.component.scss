@@ -1,0 +1,25 @@
+@import '../../../styles/global/variables';
+@import '../../../styles/mixins/rem';
+h1 {
+  font-family: $font-secondary;
+  font-weight: $font-weight-normal;
+  font-size: rem(19px);
+  color: $base;
+  margin-left: rem(35px);
+  margin-bottom: rem(22px);
+}
+
+li::before {
+  content: "•";
+  color: red;
+  margin-left: rem(35px);
+
+}
+a {
+  margin-left: 15px;
+  color: white;
+  font-family: $font-primary;
+  color: $secondary;
+
+
+}

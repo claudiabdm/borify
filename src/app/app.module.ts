@@ -7,6 +7,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PlayerComponent } from './components/player/player.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ArtistComponent } from './components/artist/artist.component';
+import { PlaylistsComponent } from './components/playlists/playlists.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ArtistComponent } from './components/artist/artist.component';
     SidebarComponent,
     PlayerComponent,
     HeaderComponent,
-    ArtistComponent
+    ArtistComponent,
+    PlaylistsComponent
   ],
   imports: [
     BrowserModule,

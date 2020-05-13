@@ -1,0 +1,35 @@
+@import '../../../styles/global/variables';
+@import '../../../styles/mixins/rem';
+h1 {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: rem(19px);
+  color: $base;
+  margin-left: rem(35px);
+  margin-bottom: rem(22px);
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: rem(35px);
+
+  font-family: $font-primary;
+  font-weight: $font-weight-normal;
+
+
+  &__list {
+    margin-top: rem(20px);
+    margin-bottom: rem(42px);
+  }
+
+}
+
+li {
+  padding: rem(22px) rem(0px);
+}
+
+a {
+  color: $secondary;
+}
