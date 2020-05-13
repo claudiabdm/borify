@@ -1,3 +1,31 @@
+@import '../styles/mixins/rem';
+@import '../styles/global/variables';
+
 .layout {
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar artist"
+  ;
+  height: 100vh;
+  width: 100vw;
+  grid-template-rows: rem(57px) 100%;
+  grid-template-columns: rem(220px) 100%;
+
+
+  &__header {
+    background-color: green;
+    grid-area: header;
+  }
+
+  &__sidebar {
+    background-color: blue;
+    grid-area: sidebar;
+  }
+
+  &__artist {
+    background-color: red;
+    grid-area: artist;
+  }
 
 }
