@@ -1,4 +1,4 @@
-@import '../styles/mixins/rem';
+@import '../styles/mixins/mixins';
 @import '../styles/global/variables';
 
 .layout {
@@ -28,4 +28,11 @@
     grid-area: artist;
   }
 
+}
+
+.footer {
+  @include fixed(auto, 0, 0, 0);
+  @include size(100vw, rem(62px));
+  background-color: $tertiary;
+  opacity: 0.9;
 }

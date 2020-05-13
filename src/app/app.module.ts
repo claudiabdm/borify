@@ -14,7 +14,7 @@ import { ArtistComponent } from './components/artist/artist.component';
     SidebarComponent,
     PlayerComponent,
     HeaderComponent,
-    ArtistComponent
+    ArtistComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,91 @@
-@import '../../../styles/mixins/rem';
+@import '../../../styles/mixins/mixins';
 @import '../../../styles/global/variables';
 
 .player {
-  width: 100vw;
+  position: relative;
+  @include flex(center, flex-start);
+  @include size(100vw, 100%);
+  padding: 12px;
+
+
+  &__album {
+    @include flex(center, flex-start);
+    @include size(rem(220px), auto);
+  }
+
+  &__cover {
+    margin-right: rem(15.78px);
+  }
+
+  &__song {
+    font-size: rem(13px);
+    font-weight: 600;
+  }
+
+  &__artist {
+    font-size: rem(12px);
+    font-weight: 400;
+    opacity: 0.8;
+  }
+
+  &__icon {
+    @include flex(center, center);
+    @include size(rem(15px), rem(13px));
+
+    &--circle {
+      @include size(rem(9px), rem(10.43px));
+    }
+  }
 
   &__controls {
-
+    @include flex(center, space-between);
+    @include size(rem(162.57px), rem(29.52px));
   }
+
+  &__control {
+    @include flex(center, center);
+    @include size(rem(15px), rem(13px));
+
+    border: 0;
+    background-color: transparent;
+
+    &--circle {
+      @include size(rem(30px), rem(30px));
+      border: 1px solid #fff;
+      border-radius: 50%;
+    }
+  }
+
+  &__volume {
+    @include flex(center, flex-start);
+    margin-left: 44px;
+    margin-right: 34px;
+  }
+
+  &__volume-line {
+    @include size(rem(105px), rem(3px));
+    margin-left: 10px;
+    border-radius: rem(3px);
+    background-color: #fff;
+    opacity: 0.35;
+  }
+
+  &__time {
+    @include flex(center, center);
+    margin-right: 25px;
+  }
+
+  &__minute {
+    font-size: rem(12px);
+    font-weight: 400;
+  }
+
+  &__time-line {
+    @include size(rem(632px), rem(3px));
+    margin: 0 10px;
+    border-radius: rem(3px);
+    background-color: #fff;
+    opacity: 0.35;
+  }
+
 }

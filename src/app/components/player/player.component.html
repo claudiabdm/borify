@@ -1,7 +1,65 @@
 <nav class="player">
-  <img class="player__album">
-  <audio controls class="player__controls">
 
-  </audio>
+  <div class="player__album">
+    <img class="player__cover" src="../../../assets/images/cover_DaftPunk_02.jpeg" width="40px" height="40px">
+    <div class="player__track">
+      <p class="player__song">Face to face</p>
+      <p class="player__artist">Daft Punk</p>
+    </div>
+  </div>
+
+  <div class="player__controls">
+    <!-- SONG CONTROLS -->
+    <button type="button" class="player__control">
+      <svg class="player__icon">
+        <use xlink:href="../../../assets/icons/sprite.svg#aleatorio" />
+      </svg>
+    </button>
+    <button type="button" class="player__control">
+      <svg class="player__icon">
+        <use xlink:href="../../../assets/icons/sprite.svg#anterior" />
+      </svg>
+    </button>
+    <button type="button" class="player__control player__control--circle">
+      <svg class="player__icon player__icon--circle">
+        <use xlink:href="../../../assets/icons/sprite.svg#pausa" />
+      </svg>
+    </button>
+    <button type="button" class="player__control">
+      <svg class="player__icon">
+        <use xlink:href="../../../assets/icons/sprite.svg#siguiente" />
+      </svg>
+    </button>
+    <button type="button" class="player__control">
+      <svg class="player__icon">
+        <use xlink:href="../../../assets/icons/sprite.svg#repetir" />
+      </svg>
+    </button>
+    <!-- // SONG CONTROLS -->
+  </div>
+
+  <!-- VOLUME -->
+  <div class="player__volume">
+    <svg class="player__icon player__control">
+      <use xlink:href="../../../assets/icons/sprite.svg#volumen" />
+    </svg>
+    <div class="player__volume-line"></div>
+  </div>
+  <!-- // VOLUME -->
+
+  <!-- SONG TIME -->
+  <div class="player__time">
+    <div class="player__minute">2:35</div>
+    <div class="player__time-line"></div>
+    <div class="player__minute">4:50</div>
+  </div>
+  <audio src="../../../assets/music/queen/BohemianRhapsody.mp3"></audio>
+ <!-- // SONG TIME -->
+
+ <!-- STACK -->
+  <svg class="player__icon player__control">
+    <use xlink:href="../../../assets/icons/sprite.svg#lista" />
+  </svg>
+  <!-- // STACK -->
 
 </nav>
