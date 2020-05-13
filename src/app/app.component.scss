@@ -9,8 +9,8 @@
   ;
   height: 100vh;
   width: 100vw;
-  grid-template-rows: rem(57px) 100%;
-  grid-template-columns: rem(220px) 100%;
+  grid-template-rows: rem(57px) 1fr;
+  grid-template-columns: rem(220px) 1fr;
 
 
   &__header {
