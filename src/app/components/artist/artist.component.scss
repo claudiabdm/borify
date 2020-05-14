@@ -1,0 +1,31 @@
+@import '../../../styles/global/variables';
+@import '../../../styles/mixins/mixins';
+
+.artist {
+
+  padding-left: 78px;
+
+  &__save {
+    @include size(rem(164px), rem(34px));
+    @include flex(center, flex-start);
+    padding-left: 14px;
+    border: 1px solid #fff;
+    border-radius: 17px;
+    margin-top: 110px;
+    color: #fff;
+    font-size: rem(14px);
+    font-family: $font-primary;
+  }
+
+  &__name {
+    font-size: rem(90px);
+    font-weight: $font-weight-bold;
+  }
+
+  &__save-icon {
+    @include flex(center, center);
+    @include size(rem(11.61px), rem(11.03px));
+    margin-right: 13px;
+  }
+
+}
