@@ -6,21 +6,22 @@
   grid-template-areas:
     "sidebar header"
     "sidebar artist"
+    "player player"
   ;
   height: 100vh;
   width: 100vw;
-  grid-template-rows: rem(57px) 1fr;
+  grid-template-rows: rem(57px) 1fr  rem(62px);
   grid-template-columns: rem(220px) 1fr;
 
 
   &__header {
-    background-color: #ccc;
     grid-area: header;
   }
 
   &__sidebar {
-    background-color: $primary;
     grid-area: sidebar;
+    background-color: $primary;
+    overflow: auto;
   }
 
   &__artist {
@@ -28,11 +29,10 @@
     grid-area: artist;
   }
 
-}
+  &__player {
+    grid-area: player;
+    background-color: $tertiary;
+    opacity: 0.9;
+  }
 
-.footer {
-  @include fixed(auto, 0, 0, 0);
-  @include size(100vw, rem(62px));
-  background-color: $tertiary;
-  opacity: 0.9;
 }

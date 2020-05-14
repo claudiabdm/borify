@@ -4,7 +4,6 @@
 .player {
   position: relative;
   @include flex(center, flex-start);
-  @include size(100vw, 100%);
   padding: 12px;
 
   // SONG INFO
@@ -93,7 +92,7 @@
   }
 
   &__time-line {
-    @include size(rem(632px), rem(3px));
+    @include size(auto, rem(3px));
     margin: 0 10px;
     border-radius: rem(3px);
     background-color: #fff;
