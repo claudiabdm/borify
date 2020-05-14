@@ -8,6 +8,8 @@ import { PlayerComponent } from './components/player/player.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { PlaylistsComponent } from './components/playlists/playlists.component';
+import { FormsModule } from '@angular/forms';
+import { TimeFormatPipe } from './shared/time-format.pipe';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,17 @@ import { PlaylistsComponent } from './components/playlists/playlists.component';
     PlayerComponent,
     HeaderComponent,
     ArtistComponent,
-    PlaylistsComponent
+    PlaylistsComponent,
+    TimeFormatPipe,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
   ],
-  providers: [],
+  providers: [
+    TimeFormatPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

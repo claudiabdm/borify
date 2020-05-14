@@ -1,9 +1,9 @@
 <nav class="player">
 
-  <div class="player__album">
+  <div class="player__song-info">
     <img class="player__cover" src="../../../assets/images/cover_DaftPunk_02.jpeg" width="40px" height="40px">
     <div class="player__track">
-      <p class="player__song">Face to face</p>
+      <p class="player__song-name">Face to face</p>
       <p class="player__artist">Daft Punk</p>
     </div>
   </div>
@@ -12,27 +12,27 @@
     <!-- SONG CONTROLS -->
     <button type="button" class="player__control">
       <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#aleatorio" />
+        <use xlink:href="../../../assets/icons/sprite.svg#aleatorio" (click)="onRandom()"/>
       </svg>
     </button>
     <button type="button" class="player__control">
       <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#anterior" />
+        <use xlink:href="../../../assets/icons/sprite.svg#anterior" (click)="onPrev()"/>
       </svg>
     </button>
-    <button type="button" class="player__control player__control--circle">
+    <button type="button" class="player__control player__control--circle" (click)="onPlay()">
       <svg class="player__icon player__icon--circle">
-        <use xlink:href="../../../assets/icons/sprite.svg#pausa" />
+        <use xlink:href="../../../assets/icons/sprite.svg#pausa"/>
       </svg>
     </button>
-    <button type="button" class="player__control">
+    <button type="button" class="player__control" (click)="onNext()">
       <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#siguiente" />
+        <use xlink:href="../../../assets/icons/sprite.svg#siguiente"/>
       </svg>
     </button>
-    <button type="button" class="player__control">
+    <button type="button" class="player__control" >
       <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#repetir" />
+        <use xlink:href="../../../assets/icons/sprite.svg#repetir"/>
       </svg>
     </button>
     <!-- // SONG CONTROLS -->
@@ -43,18 +43,19 @@
     <svg class="player__icon player__control">
       <use xlink:href="../../../assets/icons/sprite.svg#volumen" />
     </svg>
-    <div class="player__volume-line"></div>
+    <input type="range" min="0" max="1" value="0.5" step="0.1" class="player__volume-line" [(ngModel)]="player.volume">
   </div>
   <!-- // VOLUME -->
 
   <!-- SONG TIME -->
   <div class="player__time">
-    <div class="player__minute">2:35</div>
-    <div class="player__time-line"></div>
-    <div class="player__minute">4:50</div>
+    <div class="player__minute"> {{ currentTime }} </div>
+    <input type="range" min="0" [max]="songDurationNum" step="1" [(ngModel)]="currentSecond" class="player__time-line">
+    <div class="player__minute"> {{ songDuration }}</div>
   </div>
-  <audio src="../../../assets/music/queen/BohemianRhapsody.mp3"></audio>
- <!-- // SONG TIME -->
+  <!-- // SONG TIME -->
+
+  <audio #player [src]="currentSong" type="audio/mpeg" (timeupdate)="onUpdate($event)" (ended)="onNext()"></audio>
 
  <!-- STACK -->
   <svg class="player__icon player__control">
