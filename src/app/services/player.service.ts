@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class PlayerService {
 
-  playList: string[] = ["https://p.scdn.co/mp3-preview/7409d884124b837930e01f79fbeaaf7838640e8d?cid=774b29d4f13844c495f206cafdad9c86", "https://p.scdn.co/mp3-preview/458af51828c1550e4928d6bce492e35079e50fd8?cid=774b29d4f13844c495f206cafdad9c86", "https://p.scdn.co/mp3-preview/cd7991e7076d0410677032dd9093a9cd712b69fd?cid=774b29d4f13844c495f206cafdad9c86", "https://p.scdn.co/mp3-preview/20e27bbc6c7dd769fc5245d2ef6da78e2ad99549?cid=774b29d4f13844c495f206cafdad9c86"];
+  playList: string[] = ["https://p.scdn.co/mp3-preview/458af51828c1550e4928d6bce492e35079e50fd8?cid=774b29d4f13844c495f206cafdad9c86", "https://p.scdn.co/mp3-preview/cd7991e7076d0410677032dd9093a9cd712b69fd?cid=774b29d4f13844c495f206cafdad9c86", "https://p.scdn.co/mp3-preview/20e27bbc6c7dd769fc5245d2ef6da78e2ad99549?cid=774b29d4f13844c495f206cafdad9c86"];
   currentSong: string = "https://p.scdn.co/mp3-preview/cd7991e7076d0410677032dd9093a9cd712b69fd?cid=774b29d4f13844c495f206cafdad9c86";
 
   constructor() { }

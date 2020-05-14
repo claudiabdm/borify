@@ -7,6 +7,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PlayerComponent } from './components/player/player.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ArtistComponent } from './components/artist/artist.component';
+import { FormsModule } from '@angular/forms';
+import { TimeFormatPipe } from './shared/time-format.pipe';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,16 @@ import { ArtistComponent } from './components/artist/artist.component';
     PlayerComponent,
     HeaderComponent,
     ArtistComponent,
+    TimeFormatPipe,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
   ],
-  providers: [],
+  providers: [
+    TimeFormatPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
