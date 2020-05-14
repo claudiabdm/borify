@@ -1,66 +1,61 @@
 @import '../../../styles/global/variables';
-@import '../../../styles/mixins/rem';
+@import '../../../styles/mixins/mixins';
 
 
-.bg {
+.header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: rem(1086px);
   height: rem(34px);
   background-color: transparent;
-  margin-left: rem(30px);
-  margin-top: rem(13px);
-
+  padding-left: rem(30px);
+  padding-top: rem(13px);
   //border: 1px solid green;
 
+
+  // SEARCH
+  &__search {
+
+      @include flex(center, center);
+
+    &-icon {
+      @include size(rem(13px), rem(13px));
+    }
+
+    &-bar {
+      margin-left: 13.12px;
+      padding: 5px;
+      border: none;
+      background: transparent;
+
+      &::placeholder {
+        color: #fff;
+        opacity: 1;
+        font-size: rem(14px);
+        font-family: $font-primary;
+        font-weight: $font-weight-normal;
+      }
+    }
+  }
+
 }
 
-.search-container {
-
-  & .icon {
-
-
-  }
-
-  & input {
-    background: transparent;
-    border: none;
-    margin-left: rem(30px);
-    margin-top: rem(8px);
-
-  }
-
-  & ::placeholder {
-    color: #fff;
-    opacity: 1;
-    font-size: rem(14px);
-    font-family: $font-primary;
-    font-weight: $font-weight-normal;
-  }
-}
-
-
-
-
-
-.avatar-container {
+.header__user {
   display: flex;
   flex-direction: row;
   align-items: center;
 
   padding-right: rem(12px);
-  & p {
+
+  .header__username {
     font-family: $font-primary;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semibold;
     color: white
   }
-  & img {
+
+  .header__img {
     margin-left: rem(15px);
 
 
   }
 }
-
-
-
