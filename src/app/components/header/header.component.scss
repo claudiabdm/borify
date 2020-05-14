@@ -1,6 +1,7 @@
 @import '../../../styles/global/variables';
 @import '../../../styles/mixins/rem';
 
+
 .bg {
   display: flex;
   flex-direction: row;
@@ -13,23 +14,35 @@
 
   //border: 1px solid green;
 
-
 }
-input {
-  background: transparent;
-  border: none;
 
-  font-family: $font-primary;
-  font-weight: $font-weight-normal;
+.search-container {
+
+  & .icon {
 
 
+  }
 
+  & input {
+    background: transparent;
+    border: none;
+    margin-left: rem(30px);
+    margin-top: rem(8px);
+
+  }
+
+  & ::placeholder {
+    color: #fff;
+    opacity: 1;
+    font-size: rem(14px);
+    font-family: $font-primary;
+    font-weight: $font-weight-normal;
+  }
 }
-::placeholder {
-  color: white;
-  opacity: 1;
-  font-size: rem(14px);
-}
+
+
+
+
 
 .avatar-container {
   display: flex;
@@ -37,16 +50,17 @@ input {
   align-items: center;
 
   padding-right: rem(12px);
+  & p {
+    font-family: $font-primary;
+    font-weight: $font-weight-bold;
+    color: white
+  }
+  & img {
+    margin-left: rem(15px);
 
+
+  }
 }
-p {
-  font-family: $font-primary;
-  font-weight: $font-weight-bold;
-  color: white
-}
-
-img {
-  margin-left: rem(15px);
 
 
-}
+
