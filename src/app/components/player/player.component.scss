@@ -89,7 +89,7 @@
   }
 
   &__time-line {
-    @include size(auto, rem(3px));
+    @include size(rem(686px), rem(3px));
     margin: 0 10px;
     border-radius: rem(3px);
     background-color: #fff;
