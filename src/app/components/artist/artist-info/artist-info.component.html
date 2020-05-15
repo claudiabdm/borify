@@ -1,0 +1,8 @@
+<section class="artist-info">
+  <nav class="artist-info__navbar">
+    <a class="artist-info__section" #albumsRoute="routerLinkActive" routerLinkActive="artist-info__section--selected" [routerLink]="'artist/albums'"><span class="artist-info__name">Albums</span></a>
+    <a class="artist-info__section" #aboutRoute="routerLinkActive" routerLinkActive="artist-info__section--selected" [routerLink]="'artist/about'"><span class="artist-info__name">About</span></a>
+    <a class="artist-info__section" #relatedRoute="routerLinkActive" routerLinkActive="artist-info__section--selected" [routerLink]="'artist/related'"><span class="artist-info__name">Related Artist</span></a>
+  </nav>
+  <router-outlet></router-outlet>
+</section>
