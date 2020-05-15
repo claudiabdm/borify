@@ -8,6 +8,7 @@ import { PlayerComponent } from './components/player/player.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { PlaylistsComponent } from './components/playlists/playlists.component';
+import { ModalComponent } from './shared/modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { TimeFormatPipe } from './shared/time-format.pipe';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,6 +19,10 @@ import { ArtistRelatedComponent } from './components/artist/artist-related/artis
 import { SpotifyApiInterceptor } from './interceptors/spotify-api.interceptor';
 import { ArtistTracksComponent } from './components/artist/artist-tracks/artist-tracks.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog'
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,16 +32,22 @@ import { ArtistTracksComponent } from './components/artist/artist-tracks/artist-
     ArtistComponent,
     PlaylistsComponent,
     TimeFormatPipe,
+    ModalComponent,
     ArtistInfoComponent,
     ArtistAlbumsComponent,
     ArtistAboutComponent,
     ArtistRelatedComponent,
     ArtistTracksComponent,
   ],
+  entryComponents: [ModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+
+
     HttpClientModule
   ],
   providers: [
