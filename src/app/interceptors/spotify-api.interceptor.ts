@@ -31,4 +31,5 @@ export class SpotifyApiInterceptor implements HttpInterceptor {
   private addToken(request: HttpRequest<unknown>, token: string) {
     return request.clone({ setHeaders: { Authorization: token } });
   }
+
 }
