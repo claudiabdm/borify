@@ -4,11 +4,11 @@
   <mat-dialog-content>
     <form class="modal__form" action="..." method="...">
       <label for="name" class="modal__form-label">Name</label>
-      <input type="text" id="name" name="name" class="modal__form-input">
+      <input #myInput type="text" id="name" name="name" class="modal__form-input">
     </form>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button class="modal__btn modal__btn--create" mat-dialog-close>Create</button>
+    <button class="modal__btn modal__btn--create" mat-dialog-close (click)="logMessage(myInput.value)">Create</button>
   </mat-dialog-actions>
 
 </div>

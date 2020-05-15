@@ -8,9 +8,17 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ModalComponent implements OnInit {
 
+  public playlists: any = [];
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
   }
+
+  logMessage(value) {
+    console.log(value)
+    this.playlists.push(value);
+  }
+
 
 }

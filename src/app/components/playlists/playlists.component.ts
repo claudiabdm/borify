@@ -19,8 +19,13 @@ export class PlaylistsComponent implements OnInit {
     let dialogRef = this.dialog.open(ModalComponent, {panelClass: 'custom-dialog-container'});
     dialogRef.afterClosed().subscribe(res => {
       console.log(`Dialog result: ${res}`);
+      if (res === true) {
+        this.playlists.push()
+      }
     });
   }
+
+
 
   ngOnInit(): void {
   }
