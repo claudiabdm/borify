@@ -10,23 +10,26 @@
   ;
   height: 100vh;
   width: 100vw;
-  grid-template-rows: rem(57px) 1fr  rem(62px);
+  grid-template-rows: rem(57px) 1fr rem(62px);
   grid-template-columns: rem(220px) 1fr;
 
 
   &__header {
     grid-area: header;
+    background: none;
   }
 
   &__sidebar {
     grid-area: sidebar;
+    height: 100vh;
+    padding-bottom: rem(63px);
     background-color: $primary;
     overflow: auto;
   }
 
   &__artist {
-    background-color: red;
     grid-area: artist;
+    background: none;
   }
 
   &__player {
@@ -36,5 +39,11 @@
   }
 
 
+  &__bg {
+    height: 100vh;
+    padding-bottom: rem(63px);
+    background-image: url('../assets/images/BASIC/BG.PNG');
+    overflow: auto;
+  }
 
 }

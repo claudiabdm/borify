@@ -1,0 +1,7 @@
+<section class="artist-albums">
+  <article *ngFor="let album of currentArtistAlbums$ | async" class="artist-albums__album">
+    <img [src]="album.images[1].url" width="170px" height="170px" alt="">
+    <h3>{{ album.name }}</h3>
+    <p>{{ album.release_date }}</p>
+  </article>
+</section>

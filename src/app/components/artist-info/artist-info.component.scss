@@ -1,0 +1,19 @@
+@import '../../../styles/global/variables';
+@import '../../../styles/mixins/mixins';
+
+.artist-info {
+  &__navbar {
+    @include flex(center, flex-start);
+  }
+
+  &__section {
+    padding-left: 10px;
+    font-size: rem(14px);
+    font-family: $font-primary;
+    font-weight: $font-weight-normal;
+
+    & + & {
+      margin-left: 45.31px;
+    }
+  }
+}

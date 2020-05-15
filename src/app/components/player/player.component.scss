@@ -2,7 +2,7 @@
 @import '../../../styles/global/variables';
 
 .player {
-  position: relative;
+  @include size(100%);
   @include flex(center, flex-start);
   padding: 12px;
 
@@ -47,9 +47,6 @@
   &__control {
     @include flex(center, center);
     @include size(rem(15px), rem(13px));
-
-    border: 0;
-    background-color: transparent;
 
     &:hover {
       cursor: pointer;

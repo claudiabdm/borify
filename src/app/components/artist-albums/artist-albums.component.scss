@@ -1,0 +1,13 @@
+@import '../../../styles/global/variables';
+@import '../../../styles/mixins/mixins';
+
+.artist-albums {
+  display: grid;
+  grid-template-columns: repeat(3, rem(170px));
+  gap: rem(20px);
+  overflow: auto;
+
+  &__album {
+
+  }
+}

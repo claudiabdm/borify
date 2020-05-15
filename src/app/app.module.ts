@@ -11,6 +11,9 @@ import { PlaylistsComponent } from './components/playlists/playlists.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { TimeFormatPipe } from './shared/time-format.pipe';
+import { HttpClientModule } from '@angular/common/http';
+import { ArtistInfoComponent } from './components/artist-info/artist-info.component';
+import { ArtistAlbumsComponent } from './components/artist-albums/artist-albums.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog'
@@ -26,6 +29,8 @@ import { MatDialogModule } from '@angular/material/dialog'
     PlaylistsComponent,
     TimeFormatPipe,
     ModalComponent,
+    ArtistInfoComponent,
+    ArtistAlbumsComponent,
   ],
   entryComponents: [ModalComponent],
   imports: [
@@ -33,9 +38,10 @@ import { MatDialogModule } from '@angular/material/dialog'
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
 
 
+    HttpClientModule
   ],
   providers: [
     TimeFormatPipe
