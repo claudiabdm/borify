@@ -9,13 +9,17 @@ import { Observable } from 'rxjs';
 })
 export class ArtistAlbumsComponent implements OnInit {
 
-  currentArtistAlbums$: Observable<any>;
 
   constructor(
     private spotifyApi: SpotifyApiService
   ) { }
 
   ngOnInit(): void {
-    this.currentArtistAlbums$ = this.spotifyApi.getArtistAlbums('3AA28KZvwAUcZuOKwyblJQ');
+    this.spotifyApi.currentArtistAlbums$ = this.spotifyApi.getArtistAlbums(this.spotifyApi.currentArtistId)
   }
+
+  get currentArtistAlbums(){
+    return this.spotifyApi.currentArtistAlbums$;
+  }
+
 }

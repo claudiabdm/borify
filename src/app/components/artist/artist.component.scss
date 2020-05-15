@@ -3,7 +3,12 @@
 
 .artist {
 
-  padding-left: 78px;
+  @include flex(flex-start, flex-start);
+  padding: 0 78px;
+
+  &__main {
+    padding-right: 35px;
+  }
 
   &__save {
     @include size(rem(164px), rem(34px));
@@ -26,6 +31,16 @@
     @include flex(center, center);
     @include size(rem(11.61px), rem(11.03px));
     margin-right: 13px;
+  }
+
+  &__info {
+    overflow: auto;
+  }
+
+  &__tracks {
+    width: 100%;
+    padding-top: 30px;
+    overflow: auto;
   }
 
 }
