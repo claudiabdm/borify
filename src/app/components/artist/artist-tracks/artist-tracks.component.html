@@ -1,0 +1,11 @@
+<h3 class="artist-tracks__title">Random selection</h3>
+
+<ul class="artist-tracks__list">
+  <li *ngFor="let track of currentArtistTracks | async" class="artist-tracks__track">
+    <div class="artist-tracks__info">
+      <p class="artist-tracks__name">{{ track.name }}</p>
+      <p class="artist-tracks__album"> {{ track.album.name }}</p>
+    </div>
+    <time class="artist-tracks__time">{{ track.duration_ms / 1000 | timeFormat }}</time>
+  </li>
+</ul>
