@@ -1,0 +1,13 @@
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(3, rem(170px));
+  gap: rem(20px);
+  overflow: auto;
+
+  &__article {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
