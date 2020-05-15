@@ -10,9 +10,6 @@ import { ArtistComponent } from './components/artist/artist.component';
 import { PlaylistsComponent } from './components/playlists/playlists.component';
 import { FormsModule } from '@angular/forms';
 import { TimeFormatPipe } from './shared/time-format.pipe';
-import { HttpClientModule } from '@angular/common/http';
-import { ArtistInfoComponent } from './components/artist-info/artist-info.component';
-import { ArtistAlbumsComponent } from './components/artist-albums/artist-albums.component';
 
 @NgModule({
   declarations: [
@@ -23,14 +20,11 @@ import { ArtistAlbumsComponent } from './components/artist-albums/artist-albums.
     ArtistComponent,
     PlaylistsComponent,
     TimeFormatPipe,
-    ArtistInfoComponent,
-    ArtistAlbumsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
   ],
   providers: [
     TimeFormatPipe
