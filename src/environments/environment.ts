@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  spotifyApiToken: 'BQB7Tu8arnVM2Eb8tUptPTLa1ucSdWKNi-aNgUBByAiqwcToUqbEvPTZk7svmWdrKTLOQV1JTCVifRYJ-Z8',
+  spotifyApiBasicToken: 'MjA4NDNlYTJlY2M0NDk4Y2I4YjFkNjkyNTM1ZTBjMjI6MGE0YjE4NGQzYjdmNDQxYTljZjA1ZDAwZTgzY2JhNmI',
   spotifyApiUrl: 'https://api.spotify.com/v1/artists/',
 };
 
