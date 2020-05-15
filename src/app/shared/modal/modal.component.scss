@@ -1,0 +1,71 @@
+@import '../../../styles/global/variables';
+@import '../../../styles/mixins/mixins';
+
+
+.modal {
+  padding-top: 40px;
+  padding-left: 50px;
+  font-family: $font-secondary;
+  background-color: $primary;
+  height: 100%;
+
+  &__title {
+    font-family: $font-secondary;
+    color: $base;
+  }
+
+  &__btn {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    color: $secondary;
+    position: absolute;
+    left: 94%;
+    top: 7%;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &--create {
+      position: static;
+      background-color: $success;
+      border-radius: 20px;
+      font-family: $font-primary;
+      font-weight: $font-weight-bold;
+      font-size: 20px;
+      color: $base;
+      font-size: 14px;
+      width: rem(121px);
+      height: rem(41px);
+      margin-top: rem(20px);
+
+    }
+
+
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+
+    &-label {
+      color: $secondary;
+
+    }
+
+    &-input {
+      width: rem(387px);
+      height: rem(43px);
+      border-radius: 4px;
+    }
+  }
+
+
+}
+
+.modal__form-input {
+  border: none;
+}
+
+

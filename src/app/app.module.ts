@@ -8,8 +8,13 @@ import { PlayerComponent } from './components/player/player.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { PlaylistsComponent } from './components/playlists/playlists.component';
+import { ModalComponent } from './shared/modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { TimeFormatPipe } from './shared/time-format.pipe';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog'
+
 
 @NgModule({
   declarations: [
@@ -20,11 +25,17 @@ import { TimeFormatPipe } from './shared/time-format.pipe';
     ArtistComponent,
     PlaylistsComponent,
     TimeFormatPipe,
+    ModalComponent,
   ],
+  entryComponents: [ModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule
+
+
   ],
   providers: [
     TimeFormatPipe

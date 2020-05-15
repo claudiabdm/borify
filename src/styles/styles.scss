@@ -5,3 +5,16 @@
 @import './global/reset';
 @import './global/base';
 @import './mixins/mixins';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.custom-dialog-container .mat-dialog-container {
+  position: relative;
+  padding: 0;
+  height: 247px;
+  width: 492px;
+  overflow: hidden;
+  border-radius: 1px;
+
+}
