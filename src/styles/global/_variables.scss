@@ -1,19 +1,28 @@
-//-------------
+//--------------
 //VARIABLES
 //--------------
 
-//colors palette-------------------------------------------------------------
-$primary: #151B25;
-$secondary: #B4CFF2;
-$tertiary: #E7526B;
+
+
+// Color palette
+//--------------
+
+$primary: #151b25;
+$secondary: #b4cff2;
+$tertiary: #e7526b;
 $base: #fff;
 
-$success: #23A565;
+$success: #23a565;
 
-//fonts
+$gradient: linear-gradient(#283347, #1c212b);
+
+// Font
+//--------------
+
 $font-primary: 'Source Sans Pro', Arial, sans-serif;
 $font-secondary: 'Abel', Arial, sans-serif;
 
 $font-weight-normal: 400;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
+

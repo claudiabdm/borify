@@ -1,0 +1,99 @@
+@import '../../../styles/global/variables';
+@import '../../../styles/mixins/mixins';
+
+.artist-tracks {
+  font-size: rem(14px);
+  font-weight: $font-weight-semibold;
+
+  &__title {
+    padding-left: 23px;
+  }
+
+  &__list {
+    margin-top: 22.21px;
+  }
+
+  &__track {
+    @include flex(center, space-between);
+    padding: 10px 23px;
+    overflow: auto;
+    cursor: pointer;
+
+    &+& {
+      margin-top: 22px;
+    }
+
+    &:hover {
+      background-color: rgba($color: #181e28, $alpha: 0.31);
+      border-radius: 4px;
+    }
+
+  }
+
+  &__info {
+    margin-right: auto;
+  }
+
+  &__album {
+    opacity: 0.5;
+    color: $secondary;
+    font-size: rem(13px);
+    font-weight: $font-weight-normal;
+  }
+
+  &__time,
+  &__album {
+    font-size: rem(13px);
+  }
+
+  &__time {
+    margin: 0 10px;
+  }
+
+  &__icon {
+    @include size(rem(15px), rem(15px));
+
+    &--plus {
+      fill: #fff;
+      color: #fff;
+    }
+
+    &--hide {
+      opacity: 0;
+    }
+
+  }
+}
+
+
+// MODAL ACTION BUTTON
+// ----------------------------
+.modal__action {
+  border-top: 1px solid rgba($color: #fff, $alpha: 0.1);
+  padding: 13px 20px 20px;
+}
+
+// MODAL LIST
+// ----------------------------
+.modal__list {
+  padding-bottom: 20px;
+}
+
+// MODAL ACTION ELEM
+// ----------------------------
+.modal__elem {
+  padding: 0 20px;
+
+  & + & {
+    margin-top: 6px;
+  }
+}
+
+.modal__title {
+  padding-top: 20px;
+  padding-left: 20px;
+  color: #fff;
+  font-family: $font-secondary;
+  font-size: rem(14px);
+  text-transform: uppercase;
+}

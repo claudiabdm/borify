@@ -3,13 +3,13 @@
 
 .artist {
 
-  @include flex(flex-start, space-between);
+  @include flex(flex-start, flex-start);
   flex-wrap: wrap;
   padding: 0 78px;
-
+  overflow: auto;
   &__main {
     width: 570px;
-    padding-right: 35px;
+    margin-right: 32px;
   }
 
   &__save {
@@ -40,6 +40,7 @@
   }
 
   &__tracks {
+    width: auto;
     min-width: 442px;
     padding-top: 30px;
     overflow: auto;
