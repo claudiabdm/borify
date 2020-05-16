@@ -1,8 +1,8 @@
 <h3 class="artist-tracks__title">Random selection</h3>
 
 <ul class="artist-tracks__list">
-  <li *ngFor="let track of currentArtistTracks | async" class="artist-tracks__track"
-    (dblclick)="playSong(track)">
+  <li *ngFor="let track of currentArtistTracks | async" class="artist-tracks__track" (dblclick)="playSong(track)"
+    (mouseover)="onMouseIn(track)" (mouseout)="onMouseOut(track)" [id]="track.id">
     <div class="artist-tracks__info">
       <p class="artist-tracks__name">{{ track.name }}</p>
       <p class="artist-tracks__album"> {{ track.album.name }}</p>
@@ -11,8 +11,23 @@
       <use xlink:href="../../../assets/icons/sprite.svg#lineas" />
     </svg>
     <time class="artist-tracks__time">{{ track.duration_ms / 1000 | timeFormat }}</time>
-    <svg class="artist-tracks__icon artist-tracks__icon--plus">
+    <svg class="artist-tracks__icon artist-tracks__icon--plus" (click)="toggleModal(targetModal, track.id)"
+      [class.artist-tracks__icon--hide]="track.hidden || track.hidden === undefined">
       <use xlink:href="../../../assets/icons/sprite.svg#plus" />
     </svg>
   </li>
 </ul>
+
+<app-reusable-modal #targetModal [title]="'Add to playlist'" [modalId]="" [isLarge]="false"
+  [modalVisible]="false" (close)="toggleModal(targetModal, '')">
+  <ng-container *ngIf="targetModal.modalVisible">
+    <ul class="modal__list">
+      <li *ngFor="let playlist of playlists" class="modal__elem" (click)="addToPlaylist()">
+        {{ playlist }}
+      </li>
+    </ul>
+    <div class="modal__action">
+      New playlist
+    </div>
+  </ng-container>
+</app-reusable-modal>

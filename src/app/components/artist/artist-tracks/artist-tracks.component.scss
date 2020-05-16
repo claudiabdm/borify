@@ -19,7 +19,7 @@
     overflow: auto;
     cursor: pointer;
 
-    & + & {
+    &+& {
       margin-top: 22px;
     }
 
@@ -30,7 +30,7 @@
 
   }
 
-  &__info{
+  &__info {
     margin-right: auto;
   }
 
@@ -38,7 +38,8 @@
     opacity: 0.7;
   }
 
-  &__time, &__album {
+  &__time,
+  &__album {
     font-size: rem(13px);
   }
 
@@ -53,7 +54,34 @@
       fill: #fff;
       color: #fff;
     }
+
+    &--hide {
+      opacity: 0;
+    }
+
   }
 }
 
 
+// MODAL ACTION BUTTON
+// ----------------------------
+.modal__action {
+  border-top: 1px solid rgba($color: #fff, $alpha: 0.1);
+  padding: 13px 20px 20px;
+}
+
+// MODAL LIST
+// ----------------------------
+.modal__list {
+  padding-bottom: 20px;
+}
+
+// MODAL ACTION ELEM
+// ----------------------------
+.modal__elem {
+  padding: 0 20px;
+
+  & + & {
+    margin-top: 6px;
+  }
+}
