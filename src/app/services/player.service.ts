@@ -9,6 +9,7 @@ import { switchMap, filter } from 'rxjs/operators';
 })
 export class PlayerService {
 
+  currentQueue$: Observable<Object>;
   currentPlaylist$: Observable<Object>;
   currentTrack$: Observable<Object>;
   currentTrackDuration$: Observable<Object>;
@@ -65,6 +66,17 @@ export class PlayerService {
   // }
 
   shuffle(): Observable<Object> {
+    // return this.currentPlaylist$.pipe(
+    //   map((playlist: any[]) => {
+    //     debugger
+    //     for (let i = playlist.length - 1; i > 0; i--) {
+    //       const j = Math.floor(Math.random() * (i + 1));
+    //       [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
+    //     }
+    //     console.log(playlist)
+    //     return playlist;
+    //   })
+    // )
     return this.currentPlaylist$.pipe(
       map((playlist: any[]) => {
         for (let i = playlist.length - 1; i > 0; i--) {
