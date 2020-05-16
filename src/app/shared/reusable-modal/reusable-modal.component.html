@@ -1,0 +1,18 @@
+<div #modal class="modal" [id]="modalId">
+  <div class="modal__container" [class.modal__container--large]="isLarge">
+    <header class="modal__header">
+      <h2 class="modal__title">{{ title }}</h2>
+      <button type="button" class="modal__close" (click)="onClose()">
+        <svg class="modal__icon">
+          <use xlink:href="../../assets/icons/sprite.svg#close" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="modal__body">
+
+      <ng-content></ng-content>
+
+    </div>
+  </div>
+</div>
