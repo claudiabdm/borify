@@ -1,0 +1,22 @@
+@import '../mixins/display';
+
+.custom-dialog-container .mat-dialog-container {
+  position: relative;
+  padding: 0;
+  height: 247px;
+  width: 492px;
+  overflow: hidden;
+  border-radius: 1px;
+
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px; /* Negative half of height. */
+  margin-left: -250px; /* Negative half of width. */
+}
+
+
+

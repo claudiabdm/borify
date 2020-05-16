@@ -9,8 +9,8 @@
 
 
 <ul class="playlist-list">
-  <li class="playlist-list__elem">
-    <a href="#">Rock</a>
+  <li class="playlist-list__elem" *ngFor="let playlist of playlists">
+    <a href="#">{{ playlist }}</a>
   </li>
 </ul>
 

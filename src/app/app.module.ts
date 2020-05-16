@@ -21,8 +21,12 @@ import { ArtistTracksComponent } from './components/artist/artist-tracks/artist-
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+<<<<<<< HEAD
 import { ReusableModalComponent } from './shared/reusable-modal/reusable-modal.component';
 import { PlayerQueueComponent } from './components/player-queue/player-queue.component';
+=======
+
+>>>>>>> a86a4d210b1ce88de34e19c68b552147a3c4f9fb
 
 
 @NgModule({
@@ -39,9 +43,13 @@ import { PlayerQueueComponent } from './components/player-queue/player-queue.com
     ArtistAlbumsComponent,
     ArtistAboutComponent,
     ArtistRelatedComponent,
+<<<<<<< HEAD
     ArtistTracksComponent,
     ReusableModalComponent,
     PlayerQueueComponent,
+=======
+    ArtistTracksComponent
+>>>>>>> a86a4d210b1ce88de34e19c68b552147a3c4f9fb
 
   ],
   entryComponents: [ModalComponent],

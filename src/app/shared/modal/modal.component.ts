@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { PlaylistsService } from 'src/app/services/playlists.service';
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -8,17 +10,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ModalComponent implements OnInit {
 
-  public playlists: any = [];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private playlistService: PlaylistsService) { }
 
   ngOnInit(): void {
   }
 
-  logMessage(value) {
-    console.log(value)
-    this.playlists.push(value);
+  sendPlayList(input) {
+    this.playlistService.addPlayList(input);
   }
+
+
 
 
 }

@@ -1,5 +1,5 @@
 <div class="modal">
-  <button class="modal__btn" mat-dialog-close>&times;</button>
+  <button class="modal__btn" mat-dialog-close="false">&times;</button>
   <h2 class="modal__title" mat-dialog-title >CREATE PLAYLIST</h2>
   <mat-dialog-content>
     <form class="modal__form" action="..." method="...">
@@ -8,7 +8,7 @@
     </form>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button class="modal__btn modal__btn--create" mat-dialog-close (click)="logMessage(myInput.value)">Create</button>
+    <button class="modal__btn modal__btn--create" mat-dialog-close="true" (click)="sendPlayList(myInput.value)">Create</button>
   </mat-dialog-actions>
 
 </div>
