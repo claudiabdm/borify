@@ -3,10 +3,12 @@
 
 .artist {
 
-  @include flex(flex-start, flex-start);
+  @include flex(flex-start, space-between);
+  flex-wrap: wrap;
   padding: 0 78px;
 
   &__main {
+    width: 570px;
     padding-right: 35px;
   }
 
@@ -38,7 +40,7 @@
   }
 
   &__tracks {
-    width: 100%;
+    min-width: 442px;
     padding-top: 30px;
     overflow: auto;
   }

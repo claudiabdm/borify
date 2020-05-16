@@ -1,13 +1,14 @@
 <nav class="player">
 
   <div class="player__song-info">
-    <img class="player__cover" src="../../../assets/images/cover_DaftPunk_02.jpeg" width="40px" height="40px">
+    <img class="player__cover" [src]="(currentTrack | async)?.album.images[0].url" width="40px" height="40px">
     <div class="player__track">
-      <p class="player__song-name">Face to face</p>
-      <p class="player__artist">Daft Punk</p>
+      <p class="player__song-name">{{ (currentTrack | async)?.name }}</p>
+      <p class="player__artist">{{ (currentTrack | async)?.artists[0].name }}</p>
     </div>
   </div>
 
+  <!-- PLAYER CONTROLS -->
   <div class="player__controls">
     <!-- SONG CONTROLS -->
     <button type="button" class="player__control">
@@ -37,6 +38,7 @@
     </button>
     <!-- // SONG CONTROLS -->
   </div>
+  <!-- //PLAYER CONTROLS -->
 
   <!-- VOLUME -->
   <div class="player__volume">
@@ -51,11 +53,11 @@
   <div class="player__time">
     <div class="player__minute"> {{ currentTime }} </div>
     <input type="range" min="0" [max]="songDurationNum" step="1" [(ngModel)]="currentSecond" class="player__time-line">
-    <div class="player__minute"> {{ songDuration }}</div>
+    <div class="player__minute"> {{ (currentTrack | async)?.duration_ms / 1000 | timeFormat }}</div>
   </div>
   <!-- // SONG TIME -->
 
-  <audio #player [src]="currentSong" type="audio/mpeg" (timeupdate)="onUpdate($event)" (ended)="onNext()"></audio>
+  <audio #player [src]="(currentTrack | async)?.preview_url" type="audio/mpeg" (timeupdate)="onUpdate($event)" (ended)="onNext()" autoplay></audio>
 
  <!-- STACK -->
   <svg class="player__icon player__control">
@@ -64,3 +66,6 @@
   <!-- // STACK -->
 
 </nav>
+
+
+{{ (currentTrack | async)?.name }}

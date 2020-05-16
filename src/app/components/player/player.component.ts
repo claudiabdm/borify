@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { PlayerService } from 'src/app/services/player.service';
 import { TimeFormatPipe } from 'src/app/shared/time-format.pipe';
+import { SpotifyApiService } from 'src/app/services/spotify-api.service';
+import { map } from 'rxjs/internal/operators/map';
+import { first, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-player',
@@ -12,26 +15,31 @@ export class PlayerComponent implements OnInit {
 
   @ViewChild('player') playerElem: ElementRef;
 
-  currentSong: string;
   currentTime: string = '00:00';
   currentSecond: number = 0;
 
   constructor(
     private playerService: PlayerService,
+    private spotifyApi: SpotifyApiService,
     private timePipe: TimeFormatPipe,
   ) { }
 
+
+  ngOnInit(): void {
+    this.playerService.currentPlaylist$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId);
+    this.playerService.currentTrack$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId).pipe(map(tracks => tracks[0]));
+  }
+
   get songDuration() {
-    return this.timePipe.transform(this.playerElem?.nativeElement.duration);
+    return this.playerService.currentTrack$.pipe(map((track: any) => this.timePipe.transform(track.duration_ms)));
   }
 
   get songDurationNum() {
-    return this.playerElem ? this.playerElem.nativeElement.duration : NaN;
+    return this.playerService.currentTrack$.pipe(map((track: any) => track.preview_url.duration / 1000));
   }
 
-
-  ngOnInit(): void {
-    this.currentSong = this.playerService.currentSong;
+  get currentTrack(){
+    return this.playerService.currentTrack$;
   }
 
   onPlay() {
@@ -39,17 +47,16 @@ export class PlayerComponent implements OnInit {
   }
 
   onPrev() {
-    this.playerElem.nativeElement.src = this.playerService.prev(this.playerElem.nativeElement.src);
-    this.onPlay();
+    this.playerService.currentTrack$ = this.playerService.prev();
   }
 
   onNext() {
-    this.playerElem.nativeElement.src = this.playerService.next(this.playerElem.nativeElement.src);
-    this.onPlay();
+    this.playerService.currentTrack$ = this.playerService.next();
   }
 
   onRandom() {
-    this.playerService.shuffle();
+    // this.playerService.currentPlaylist$ =  this.playerService.shuffle();
+    // this.playerService.currentTrack$ = this.playerService.currentPlaylist$
   }
 
   onUpdate(e) {
