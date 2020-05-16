@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { SpotifyApiService } from './spotify-api.service';
 import { map } from 'rxjs/internal/operators/map';
 import { switchMap, filter } from 'rxjs/operators';
@@ -13,10 +13,9 @@ export class PlayerService {
   currentTrack$: Observable<Object>;
   currentTrackDuration$: Observable<Object>;
   currentTrackId;
+  // currentTrackSource: BehaviorSubject<Object> = new BehaviorSubject(null);
 
-  constructor(
-    private spotifyApi: SpotifyApiService
-  ) { }
+  constructor() { }
 
   play(player: HTMLMediaElement) {
     player.paused ? player.play() : player.pause();
@@ -46,7 +45,7 @@ export class PlayerService {
             const idx = playlist.findIndex((song: any) => song.id === id);
             const nextSong = idx < playlist.length - 1 ? playlist[idx + 1] : playlist[playlist.length - 1];
             return nextSong;
-          })
+          }),
         )
       })
     )
@@ -61,18 +60,11 @@ export class PlayerService {
     )
   }
 
+  // selectNext(track: any) {
+  //   this.currentTrackSource.next(track);
+  // }
+
   shuffle(): Observable<Object> {
-    // return this.currentPlaylist$.pipe(
-    //   map((playlist: any[]) => {
-    //     debugger
-    //     for (let i = playlist.length - 1; i > 0; i--) {
-    //       const j = Math.floor(Math.random() * (i + 1));
-    //       [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
-    //     }
-    //     console.log(playlist)
-    //     return playlist;
-    //   })
-    // )
     return this.currentPlaylist$.pipe(
       map((playlist: any[]) => {
         for (let i = playlist.length - 1; i > 0; i--) {
