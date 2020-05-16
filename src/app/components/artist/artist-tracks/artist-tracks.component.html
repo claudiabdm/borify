@@ -1,7 +1,7 @@
 <h3 class="artist-tracks__title">Random selection</h3>
 
 <ul class="artist-tracks__list">
-  <li *ngFor="let track of currentArtistTracks | async" class="artist-tracks__track">
+  <li *ngFor="let track of currentArtistTracks | async" class="artist-tracks__track" (dblclick)="playSong(track.preview_url)">
     <div class="artist-tracks__info">
       <p class="artist-tracks__name">{{ track.name }}</p>
       <p class="artist-tracks__album"> {{ track.album.name }}</p>
