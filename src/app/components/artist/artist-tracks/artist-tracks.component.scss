@@ -5,16 +5,27 @@
   font-size: rem(14px);
   font-weight: $font-weight-semibold;
 
+  &__title {
+    padding-left: 23px;
+  }
+
   &__list {
     margin-top: 22.21px;
   }
 
   &__track {
     @include flex(center, space-between);
+    padding: 10px 23px;
     overflow: auto;
+    cursor: pointer;
 
     & + & {
       margin-top: 22px;
+    }
+
+    &:hover {
+      background-color: rgba($color: #181e28, $alpha: 0.31);
+      border-radius: 4px;
     }
 
   }
@@ -32,7 +43,16 @@
   }
 
   &__time {
-    margin-left: 10px;
+    margin: 0 10px;
+  }
+
+  &__icon {
+    @include size(rem(15px), rem(15px));
+
+    &--plus {
+      fill: #fff;
+      color: #fff;
+    }
   }
 }
 

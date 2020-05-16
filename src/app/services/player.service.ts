@@ -52,6 +52,15 @@ export class PlayerService {
     )
   }
 
+  select(track: any) {
+    return this.currentPlaylist$.pipe(
+      map((playlist: any[]) => {
+        const selectedSong = playlist.find((song: any) => song.id === track.id);
+        return selectedSong;
+      })
+    )
+  }
+
   shuffle(): Observable<Object> {
     // return this.currentPlaylist$.pipe(
     //   map((playlist: any[]) => {

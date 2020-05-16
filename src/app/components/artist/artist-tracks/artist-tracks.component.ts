@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SpotifyApiService } from 'src/app/services/spotify-api.service';
 import { TimeFormatPipe } from 'src/app/shared/time-format.pipe';
 import { PlayerService } from 'src/app/services/player.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-artist-tracks',
@@ -12,7 +13,7 @@ export class ArtistTracksComponent implements OnInit {
 
   constructor(
     private spotifyApi: SpotifyApiService,
-    private player: PlayerService
+    private playerService: PlayerService
   ) { }
 
   ngOnInit(): void {
@@ -22,8 +23,11 @@ export class ArtistTracksComponent implements OnInit {
   get currentArtistTracks() {
     return this.spotifyApi.currentArtistTracks$;
   }
+  get currentTrack() {
+    return this.playerService.currentTrack$;
+  }
 
-  playSong(song: string) {
-
+  playSong(track: any) {
+    this.playerService.currentTrack$ = this.playerService.select(track);
   }
 }

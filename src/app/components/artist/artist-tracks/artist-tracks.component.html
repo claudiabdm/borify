@@ -1,11 +1,18 @@
 <h3 class="artist-tracks__title">Random selection</h3>
 
 <ul class="artist-tracks__list">
-  <li *ngFor="let track of currentArtistTracks | async" class="artist-tracks__track" (dblclick)="playSong(track.preview_url)">
+  <li *ngFor="let track of currentArtistTracks | async" class="artist-tracks__track"
+    (dblclick)="playSong(track)">
     <div class="artist-tracks__info">
       <p class="artist-tracks__name">{{ track.name }}</p>
       <p class="artist-tracks__album"> {{ track.album.name }}</p>
     </div>
+    <svg class="artist-tracks__icon" *ngIf="track.id === (currentTrack | async)?.id">
+      <use xlink:href="../../../assets/icons/sprite.svg#lineas" />
+    </svg>
     <time class="artist-tracks__time">{{ track.duration_ms / 1000 | timeFormat }}</time>
+    <svg class="artist-tracks__icon artist-tracks__icon--plus">
+      <use xlink:href="../../../assets/icons/sprite.svg#plus" />
+    </svg>
   </li>
 </ul>
