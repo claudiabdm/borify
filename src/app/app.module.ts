@@ -20,7 +20,8 @@ import { SpotifyApiInterceptor } from './interceptors/spotify-api.interceptor';
 import { ArtistTracksComponent } from './components/artist/artist-tracks/artist-tracks.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog'
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { MatDialogModule } from '@angular/material/dialog'
     ArtistAlbumsComponent,
     ArtistAboutComponent,
     ArtistRelatedComponent,
-    ArtistTracksComponent,
+    ArtistTracksComponent
+
   ],
   entryComponents: [ModalComponent],
   imports: [
