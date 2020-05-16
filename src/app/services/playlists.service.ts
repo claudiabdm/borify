@@ -13,7 +13,7 @@ export class PlaylistsService {
   // private _list = new Subject<any>();
   // list$ = this._list.asObservable();
 
-  public playlists = ['Pop', 'Rock', 'Alternative'];
+  public playlists = ['Pop', 'Rock'];
 
 
   constructor() { }
@@ -23,7 +23,6 @@ export class PlaylistsService {
   // }
 
   addPlayList(playListName: any) {
-    debugger
     console.log(playListName)
     return this.playlists.push(playListName);
 
