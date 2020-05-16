@@ -11,9 +11,13 @@ import { PlaylistsComponent } from './components/playlists/playlists.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { TimeFormatPipe } from './shared/time-format.pipe';
-import { HttpClientModule } from '@angular/common/http';
-import { ArtistInfoComponent } from './components/artist-info/artist-info.component';
-import { ArtistAlbumsComponent } from './components/artist-albums/artist-albums.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ArtistInfoComponent } from './components/artist/artist-info/artist-info.component';
+import { ArtistAlbumsComponent } from './components/artist/artist-albums/artist-albums.component';
+import { ArtistAboutComponent } from './components/artist/artist-about/artist-about.component';
+import { ArtistRelatedComponent } from './components/artist/artist-related/artist-related.component';
+import { SpotifyApiInterceptor } from './interceptors/spotify-api.interceptor';
+import { ArtistTracksComponent } from './components/artist/artist-tracks/artist-tracks.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog'
@@ -31,6 +35,9 @@ import { MatDialogModule } from '@angular/material/dialog'
     ModalComponent,
     ArtistInfoComponent,
     ArtistAlbumsComponent,
+    ArtistAboutComponent,
+    ArtistRelatedComponent,
+    ArtistTracksComponent,
   ],
   entryComponents: [ModalComponent],
   imports: [
@@ -44,7 +51,8 @@ import { MatDialogModule } from '@angular/material/dialog'
     HttpClientModule
   ],
   providers: [
-    TimeFormatPipe
+    TimeFormatPipe,
+    { provide: HTTP_INTERCEPTORS, useClass: SpotifyApiInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

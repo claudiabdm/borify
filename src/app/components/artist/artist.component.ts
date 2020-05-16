@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyApiService } from 'src/app/services/spotify-api.service';
-import {  Subscription, Observable } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-artist',
@@ -9,14 +9,16 @@ import {  Subscription, Observable } from 'rxjs';
 })
 export class ArtistComponent implements OnInit {
 
-  currentArtistInfo$: Observable<any>;
-
   constructor(
     private spotifyApi: SpotifyApiService
   ) { }
 
   ngOnInit(): void {
-    this.currentArtistInfo$ = this.spotifyApi.getArtistInfo('3AA28KZvwAUcZuOKwyblJQ');
+    this.spotifyApi.currentArtist$ = this.spotifyApi.getArtistInfo(this.spotifyApi.currentArtistId);
+  }
+
+  get currentArtist() {
+    return this.spotifyApi.currentArtist$;
   }
 
 }

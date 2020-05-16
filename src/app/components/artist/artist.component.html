@@ -1,10 +1,13 @@
 <section class="artist">
-  <button type="button" class="artist__save">
-    <svg class="artist__save-icon">
-      <use xlink:href="../../../assets/icons/sprite.svg#star"/>
-    </svg>
-    Save to My stars
-  </button>
-  <h1 class="artist__name">{{ (currentArtistInfo$ | async)?.name }}</h1>
-  <app-artist-info></app-artist-info>
+  <div class="artist__main">
+    <button type="button" class="artist__save">
+      <svg class="artist__save-icon">
+        <use xlink:href="../../../assets/icons/sprite.svg#star" />
+      </svg>
+      Save to My stars
+    </button>
+    <h1 class="artist__name">{{ (currentArtist | async)?.name }}</h1>
+    <app-artist-info class="artist__info"></app-artist-info>
+  </div>
+  <app-artist-tracks class="artist__tracks"></app-artist-tracks>
 </section>

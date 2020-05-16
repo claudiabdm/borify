@@ -1,0 +1,35 @@
+@import '../../../../styles/global/variables';
+@import '../../../../styles/mixins/mixins';
+
+.artist-tracks {
+  font-size: rem(14px);
+  font-weight: $font-weight-semibold;
+
+  &__list {
+    margin-top: 22.21px;
+  }
+
+  &__track {
+    @include flex(center, space-between);
+    overflow: auto;
+
+    & + & {
+      margin-top: 22px;
+    }
+
+  }
+
+  &__info{
+    margin-right: auto;
+  }
+
+  &__album {
+    opacity: 0.7;
+  }
+
+  &__time, &__album {
+    font-size: rem(13px);
+  }
+}
+
+
