@@ -14,9 +14,147 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-top: -100px; /* Negative half of height. */
-  margin-left: -250px; /* Negative half of width. */
+  margin-top: -100px;
+  /* Negative half of height. */
+  margin-left: -250px;
+  /* Negative half of width. */
 }
 
 
+// -------------------------------//
+// REUSABLE MODAL                 //
+// -------------------------------//
 
+
+.reusable-modal {
+  @include fixed(0, 0, 0, 0);
+  @include flex(center, center);
+
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.35s ease-out, visibility 0.35s;
+  z-index: 1000;
+  visibility: hidden;
+  color: #fff;
+  font-family: $font-secondary;
+
+  // MODAL CONTAINER
+  // -----------------------------
+  &__container {
+    @include flex(flex-start, center);
+    @include size(rem(216px), auto);
+
+    flex-direction: column;
+    background-image: $gradient;
+    transform: translate3d(0, -100%, 0);
+    transition: transform 0.35s ease-out;
+
+    // Modal show container
+    // ------------------------
+    .reusable-modal--show>& {
+      transform: translate3d(0, 0, 0);
+    }
+
+    &--large {
+      @include size(rem(375px), rem(529px));
+      opacity: 1;
+    }
+  }
+
+
+  // MODAL HEADER
+  // -----------------------------
+  &__header {
+    @include flex(center, flex-start);
+    @include size(100%, auto);
+    padding: 23px 20px;
+    color: #fff;
+    font-weight: $font-weight-normal;
+    font-size: rem(14px);
+    text-transform: uppercase;
+    z-index: 10;
+  }
+
+
+  // MODAL TITLE
+  // -----------------------------
+  &__title {
+    margin-right: auto;
+    color: #fff;
+    font-family: $font-secondary;
+    font-size: rem(14px);
+    text-transform: uppercase;
+  }
+
+  // MODAL SUBTITLE
+  // -----------------------------
+  &__subtitle {
+    margin-right: auto;
+    padding-top: 20px;
+    padding-left: 20px;
+    color: #fff;
+    font-family: $font-secondary;
+    font-size: rem(14px);
+    text-transform: uppercase;
+  }
+
+  // MODAL BODY
+  // -----------------------------
+  &__body {
+    @include relative(0, 0, 0, 0);
+    @include size();
+    color: $secondary;
+    font-family: $font-primary;
+    font-weight: $font-weight-semibold;
+    overflow-y: auto;
+  }
+
+  // MODAL CLOSE BUTTON
+  // -----------------------------
+  &__close {
+    color: #5e6e8c;
+    width: auto;
+    cursor: pointer;
+  }
+
+  &__icon {
+    @include size(rem(14px), rem(14px));
+    fill: #fff;
+  }
+
+  // MODAL ACTION BUTTON
+  // ----------------------------
+  &__action {
+    width: 100%;
+    color: $secondary;
+    font-size: rem(14px);
+    font-weight: $font-weight-semibold;
+    border-top: 1px solid rgba($color: #fff, $alpha: 0.1);
+    padding: 13px 20px 20px;
+  }
+
+  // MODAL LIST
+  // ----------------------------
+  &__list {
+    padding-bottom: 20px;
+    cursor: pointer;
+  }
+
+  // MODAL ACTION ELEM
+  // ----------------------------
+  &__elem {
+    padding: 0 20px;
+
+    &+& {
+      margin-top: 6px;
+    }
+  }
+
+
+}
+
+//--- Modal Show ---//
+.reusable-modal--show {
+  opacity: 1;
+  visibility: visible;
+}

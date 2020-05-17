@@ -9,13 +9,13 @@ export class ModalService {
 
   openModal(targetModal){
     clearTimeout();
-    targetModal.modal.nativeElement.firstElementChild.classList.add('modal--show');
+    targetModal.modal.nativeElement.firstElementChild.classList.add('reusable-modal--show');
     targetModal.modalVisible = true;
   };
 
   closeModal(targetModal){
     clearTimeout();
-    targetModal.modal.nativeElement.firstElementChild.classList.remove('modal--show');
+    targetModal.modal.nativeElement.firstElementChild.classList.remove('reusable-modal--show');
     setTimeout(()=> targetModal.modalVisible = false, 350)
   }
 
