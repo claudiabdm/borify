@@ -22,11 +22,11 @@ export class SpotifyApiService {
   ) { }
 
   getArtistInfo(id: string) {
-    return this.http.get(`${this.url}${id}`);
+    return this.http.get(`${this.url}/artists/${id}`);
   }
 
   getArtistAlbums(id: string) {
-   return this.http.get(`${this.url}${id}/albums?include_groups=album&market=ES`)
+    return this.http.get(`${this.url}/artists/${id}/albums?include_groups=album&market=ES`)
       .pipe(
         map((res: any) => res.items
           .filter((item, idx: number) => {
@@ -41,11 +41,25 @@ export class SpotifyApiService {
   }
 
   getArtistRelated(id: string) {
-    return this.http.get(`${this.url}${id}/related-artists`).pipe(map((res: any) => res.artists));
+    return this.http.get(`${this.url}/artists/${id}/related-artists`).pipe(map((res: any) => res.artists));
   }
 
   getArtistTracks(id: string) {
-    return this.http.get(`${this.url}${id}/top-tracks?country=ES`).pipe(map((res: any) => res.tracks));
+    return this.http.get(`${this.url}/artists/${id}/top-tracks?country=ES`).pipe(map((res: any) => res.tracks));
+  }
+
+  getAlbumTracks(id: string) {
+    return this.http.get(`${this.url}/albums/${id}`)
+      .pipe(
+        map((res: any) => res.tracks.items.map(track => {
+          track.album = {
+            name: res.name,
+            images: [{url: res.images[0].url}],
+          };
+          return track;
+        })
+        )
+      );
   }
 
 }
