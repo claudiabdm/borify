@@ -126,11 +126,13 @@
   // ----------------------------
   &__action {
     width: 100%;
+    margin-right: auto;
+    border-top: 1px solid rgba($color: #fff, $alpha: 0.1);
+    padding: 13px 20px 20px;
     color: $secondary;
     font-size: rem(14px);
     font-weight: $font-weight-semibold;
-    border-top: 1px solid rgba($color: #fff, $alpha: 0.1);
-    padding: 13px 20px 20px;
+    text-align: left;
   }
 
   // MODAL LIST
