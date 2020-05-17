@@ -30,7 +30,7 @@
       cursor: pointer;
     }
 
-    &:focus > svg {
+    &:focus>svg {
       opacity: 1;
     }
 
@@ -49,11 +49,13 @@
 
 
 
-.playlist-list__elem::before {
-  content: "•";
-  color: red;
-  margin-left: rem(35px);
-
+.playlist-list__elem {
+  cursor: pointer;
+  &::before {
+    content: "•";
+    color: red;
+    margin-left: rem(35px);
+  }
 }
 
 a {

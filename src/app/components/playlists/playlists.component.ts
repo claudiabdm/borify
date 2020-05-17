@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { PlaylistsService } from 'src/app/services/playlists.service';
+import { PlayerService } from 'src/app/services/player.service';
+import { of } from 'rxjs/internal/observable/of';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-playlists',
@@ -12,15 +15,10 @@ export class PlaylistsComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private playlistService : PlaylistsService) { }
+    private playlistService : PlaylistsService,
+    private playerService: PlayerService) { }
 
   ngOnInit(): void {
-    // this._playlistService.list
-    //     .subscribe(
-    //       listName => {
-    //         console.log(listName);
-    //       }
-    //     )
 
   }
 
@@ -28,6 +26,10 @@ export class PlaylistsComponent implements OnInit {
     return this.playlistService.playlists;
   }
 
+  selectPlaylist(playlist) {
+    this.playerService.currentPlaylist$ = of(playlist.tracks);
+    this.playerService.currentTrack$ = this.playerService.currentPlaylist$.pipe(map((tracks: any) => tracks[0]));
+  }
 
 
   openDialog() {
