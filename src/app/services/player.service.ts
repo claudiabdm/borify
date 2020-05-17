@@ -9,7 +9,6 @@ import { switchMap, filter } from 'rxjs/operators';
 })
 export class PlayerService {
 
-  currentQueue$: Observable<Object>;
   currentPlaylist$: Observable<Object>;
   currentTrack$: Observable<Object>;
   currentTrackDuration$: Observable<Object>;
@@ -17,10 +16,6 @@ export class PlayerService {
   // currentTrackSource: BehaviorSubject<Object> = new BehaviorSubject(null);
 
   constructor() { }
-
-  play(player: HTMLMediaElement) {
-    player.paused ? player.play() : player.pause();
-  }
 
   prev(): Observable<Object> {
     return this.currentTrack$.pipe(

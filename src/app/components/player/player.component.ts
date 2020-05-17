@@ -5,6 +5,7 @@ import { SpotifyApiService } from 'src/app/services/spotify-api.service';
 import { map } from 'rxjs/internal/operators/map';
 import { ReusableModalComponent } from 'src/app/shared/reusable-modal/reusable-modal.component';
 import { ModalService } from 'src/app/services/modal.service';
+import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({
   selector: 'app-player',
@@ -39,12 +40,16 @@ export class PlayerComponent implements OnInit {
     return this.playerService.currentTrack$.pipe(map((track: any) => track.preview_url.duration / 1000));
   }
 
-  get currentTrack(){
+  get currentTrack() {
     return this.playerService.currentTrack$;
   }
 
   onPlay() {
-    this.playerService.play(this.playerElem.nativeElement);
+    if (this.playerElem.nativeElement.paused) {
+      this.playerElem.nativeElement.play().then(() => { }).catch((err) => window.alert(err + 'Try again with other song.'))
+    } else {
+      this.playerElem.nativeElement.pause();
+    }
   }
 
   onPrev() {
@@ -56,8 +61,6 @@ export class PlayerComponent implements OnInit {
   }
 
   onRandom() {
-    // this.playerService.currentPlaylist$ =  this.playerService.shuffle();
-    // this.playerService.currentTrack$ = this.playerService.currentPlaylist$
   }
 
   onUpdate(e) {

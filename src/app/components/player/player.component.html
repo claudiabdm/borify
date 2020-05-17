@@ -11,14 +11,14 @@
   <!-- PLAYER CONTROLS -->
   <div class="player__controls">
     <!-- SONG CONTROLS -->
-    <button type="button" class="player__control">
+    <button type="button" class="player__control" (click)="onRandom()">
       <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#aleatorio" (click)="onRandom()"/>
+        <use xlink:href="../../../assets/icons/sprite.svg#aleatorio"/>
       </svg>
     </button>
-    <button type="button" class="player__control">
+    <button type="button" class="player__control" (click)="onPrev()">
       <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#anterior" (click)="onPrev()"/>
+        <use xlink:href="../../../assets/icons/sprite.svg#anterior"/>
       </svg>
     </button>
     <button type="button" class="player__control player__control--circle" (click)="onPlay()">
@@ -57,7 +57,7 @@
   </div>
   <!-- // SONG TIME -->
 
-  <audio #player [src]="(currentTrack | async)?.preview_url" type="audio/mpeg" (timeupdate)="onUpdate($event)" (ended)="onNext()" autoplay></audio>
+  <audio #player [src]="(currentTrack | async)?.preview_url" type="audio/mpeg" (timeupdate)="onUpdate($event)" (ended)="onNext()" (canplay)="onPlay()" crossOrigin="anonymous"></audio>
 
  <!-- STACK -->
   <svg class="player__icon player__control" (click)="toggleModal(targetModal)">
@@ -71,6 +71,6 @@
 <app-reusable-modal #targetModal [title]="'Now playing'" [modalId]="'cola'" [isLarge]="true"
   [modalVisible]="false" (close)="toggleModal(targetModal)">
   <ng-container *ngIf="targetModal.modalVisible">
-    <app-player-queue></app-player-queue>
+    <app-player-queue (close)="toggleModal(targetModal)"></app-player-queue>
   </ng-container>
 </app-reusable-modal>
