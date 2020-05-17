@@ -6,7 +6,8 @@ h1 {
   font-size: rem(19px);
   color: $base;
   margin-left: rem(35px);
-  margin-bottom: rem(22px);
+
+  padding-top: rem(22px);
 }
 
 .navbar {
@@ -14,9 +15,12 @@ h1 {
   flex-direction: column;
   justify-content: space-between;
   margin-left: rem(35px);
-
   font-family: $font-primary;
   font-weight: $font-weight-normal;
+
+  li {
+    padding: rem(16px) 0rem;
+  }
 
 
   &__list {
