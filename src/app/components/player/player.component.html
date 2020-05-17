@@ -22,10 +22,10 @@
       </svg>
     </button>
     <button type="button" class="player__control player__control--circle" (click)="onPlay()">
-      <svg class="player__icon player__icon--circle" *ngIf="player.paused === false">
+      <svg class="player__icon player__icon--circle" *ngIf="playing">
         <use xlink:href="../../../assets/icons/sprite.svg#pausa"/>
       </svg>
-      <svg class="player__icon player__icon--circle" *ngIf="player.paused === true">
+      <svg class="player__icon player__icon--circle" *ngIf="!playing">
         <use xlink:href="../../../assets/icons/sprite.svg#play"/>
       </svg>
     </button>

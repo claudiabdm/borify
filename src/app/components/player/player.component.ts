@@ -18,6 +18,7 @@ export class PlayerComponent implements OnInit {
 
   currentTime: string = '00:00';
   currentSecond: number = 0;
+  playing: boolean = false;
 
   constructor(
     private playerService: PlayerService,
@@ -46,9 +47,10 @@ export class PlayerComponent implements OnInit {
 
   onPlay() {
     if (this.playerElem.nativeElement.paused) {
-      this.playerElem.nativeElement.play().then(() => { }).catch((err) => window.alert(err + 'Try again with other song.'))
+      this.playerElem.nativeElement.play().then(() => { this.playing = true }).catch((err) => window.alert(err + 'Try again with other song.'))
     } else {
       this.playerElem.nativeElement.pause();
+      this.playing = false;
     }
   }
 
