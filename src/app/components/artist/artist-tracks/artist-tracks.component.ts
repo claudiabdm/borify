@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyApiService } from 'src/app/services/spotify-api.service';
-import { TimeFormatPipe } from 'src/app/shared/time-format.pipe';
 import { PlayerService } from 'src/app/services/player.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
 import { ReusableModalComponent } from 'src/app/shared/reusable-modal/reusable-modal.component';
 import { ModalService } from 'src/app/services/modal.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PlaylistsService } from 'src/app/services/playlists.service';
+
 
 @Component({
   selector: 'app-artist-tracks',
@@ -71,7 +69,6 @@ export class ArtistTracksComponent implements OnInit {
       this.modalService.closeModal(targetModal);
     }
   }
-
 
   openDialog() {
     let dialogRef = this.dialog.open(ModalComponent, {panelClass: 'custom-dialog-container'});

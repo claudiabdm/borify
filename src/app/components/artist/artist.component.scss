@@ -47,3 +47,48 @@
   }
 
 }
+
+// ARTISTIBFO
+
+
+.artist-info {
+  &__navbar {
+    @include flex(center, flex-start);
+    margin: 18.43px 0 30px;
+  }
+
+  &__section {
+    @include size (rem(90px), rem(33px));
+    @include flex(center, space-between);
+    flex-direction: column;
+    font-size: rem(14px);
+    font-family: $font-primary;
+    font-weight: $font-weight-normal;
+    text-decoration: none;
+
+    & + & {
+      margin-left: 45.31px;
+    }
+
+    &:first-child {
+      margin-left: -18px;
+    }
+
+    &:nth-child(2) {
+      margin-left: 45.31px - 18px;
+    }
+
+    &:visited {
+      color: #fff;
+    }
+
+    &--selected {
+      &::after {
+        @include size(rem(52px), rem(3px));
+        content: '';
+        background-color: #3191fb;
+      }
+    }
+  }
+}
+
