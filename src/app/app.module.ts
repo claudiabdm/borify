@@ -9,10 +9,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { PlaylistsComponent } from './components/playlists/playlists.component';
 import { ModalComponent } from './shared/modal/modal.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TimeFormatPipe } from './shared/time-format.pipe';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ArtistInfoComponent } from './components/artist/artist-info/artist-info.component';
 import { ArtistAlbumsComponent } from './components/artist/artist-albums/artist-albums.component';
 import { ArtistAboutComponent } from './components/artist/artist-about/artist-about.component';
 import { ArtistRelatedComponent } from './components/artist/artist-related/artist-related.component';
@@ -36,7 +35,6 @@ import { PlayerQueueComponent } from './components/player-queue/player-queue.com
     PlaylistsComponent,
     TimeFormatPipe,
     ModalComponent,
-    ArtistInfoComponent,
     ArtistAlbumsComponent,
     ArtistAboutComponent,
     ArtistRelatedComponent,
@@ -51,10 +49,9 @@ import { PlayerQueueComponent } from './components/player-queue/player-queue.com
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-
-
     HttpClientModule
   ],
   providers: [
