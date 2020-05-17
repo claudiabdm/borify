@@ -61,27 +61,3 @@
 
   }
 }
-
-
-// MODAL ACTION BUTTON
-// ----------------------------
-.modal__action {
-  border-top: 1px solid rgba($color: #fff, $alpha: 0.1);
-  padding: 13px 20px 20px;
-}
-
-// MODAL LIST
-// ----------------------------
-.modal__list {
-  padding-bottom: 20px;
-}
-
-// MODAL ACTION ELEM
-// ----------------------------
-.modal__elem {
-  padding: 0 20px;
-
-  & + & {
-    margin-top: 6px;
-  }
-}

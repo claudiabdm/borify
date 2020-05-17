@@ -21,13 +21,13 @@
 <app-reusable-modal #targetModal [title]="'Add to playlist'" [modalId]="" [isLarge]="false"
   [modalVisible]="false" (close)="toggleModal(targetModal, '')">
   <ng-container *ngIf="targetModal.modalVisible">
-    <ul class="modal__list">
-      <li *ngFor="let playlist of playlists" class="modal__elem" (click)="addToPlaylist()">
-        {{ playlist }}
+    <ul class="reusable-modal__list">
+      <li *ngFor="let playlist of playlists" class="reusable-modal__elem" (click)="addToPlaylist(playlist)" (click)="toggleModal(targetModal, '')">
+        {{ playlist.name }}
       </li>
     </ul>
-    <div class="modal__action">
+    <button type="button" (click)="openDialog()" (click)="toggleModal(targetModal, '')" class="reusable-modal__action">
       New playlist
-    </div>
+    </button>
   </ng-container>
 </app-reusable-modal>
