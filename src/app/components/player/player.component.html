@@ -71,7 +71,7 @@
 </nav>
 
 
-<app-reusable-modal #targetModal [title]="'Now playing'" [modalId]="'cola'" [isLarge]="true"
+<app-reusable-modal #targetModal [title]="'Play Queue'" [modalId]="'cola'" [isLarge]="true"
   [modalVisible]="false" (close)="toggleModal(targetModal)">
   <ng-container *ngIf="targetModal.modalVisible">
     <app-player-queue (close)="toggleModal(targetModal)"></app-player-queue>
