@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyApiService } from 'src/app/services/spotify-api.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PlayerService } from 'src/app/services/player.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,33 +12,38 @@ import { SpotifyApiService } from 'src/app/services/spotify-api.service';
 })
 export class HeaderComponent implements OnInit {
 
-  public search="probando";
+  searchForm: FormGroup;
+  invalidArtist: boolean = false;
+  invalidQuery: boolean = false;
 
-  constructor(private spotifyApi: SpotifyApiService) { }
+  constructor(
+    private spotifyApi: SpotifyApiService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.spotifyApi.currentArtist$ = this.spotifyApi.getArtistRelated(this.spotifyApi.currentArtistId)
+    this.searchForm = new FormGroup({
+      currentSearch: new FormControl('', Validators.required)
+    });
   }
 
-  onSearchChange(searchValue: string): void {
-    console.log(searchValue);
-    this.spotifyApi.currentArtist$ = this.spotifyApi.searchKeyWord(searchValue);
-
-    let searchInput = document.getElementById('search');
+  onSearchSubmit(form: FormGroup): void {
+    const searchArtist = form.value.currentSearch.replace(/\s/gi, '%20');
+    if (searchArtist === '') {
+      this.invalidQuery = true;
+    } else {
+      this.spotifyApi.searchKeyWord(searchArtist).subscribe((artist: any) => {
+        if (!artist) {
+          this.invalidArtist = true;
+        } else {
+          this.invalidArtist = false;
+          this.invalidQuery = false;
+          this.spotifyApi.updateCurrentArtist(artist.id);
+          this.router.navigateByUrl(`artist/${artist.id}/albums`);
+        }
+      });
+    }
 
   }
-
-  // filterByText(searchValue) {
-
-  // searchInput.addEventListener('keyup', function (e, artists) => {
-  //   let inputText = e.target.value;
-  //   let artistas.forEach
-
-  // });
-
-  //}
-
-
-
 
 }

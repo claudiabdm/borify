@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map, scan, tap, switchMap } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { PlayerService } from './player.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,9 @@ export class SpotifyApiService {
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router,
+    private playerService: PlayerService
   ) { }
 
   getArtistInfo(id: string) {
@@ -54,7 +58,7 @@ export class SpotifyApiService {
         map((res: any) => res.tracks.items.map(track => {
           track.album = {
             name: res.name,
-            images: [{url: res.images[0].url}],
+            images: [{ url: res.images[0].url }],
           };
           return track;
         })
@@ -63,11 +67,21 @@ export class SpotifyApiService {
   }
 
   searchKeyWord(input: string) {
-    return this.http.get(`${this.url}/search?q=${input}`)
+    return this.http.get(`${this.url}/search?q=${input}&type=artist&market=ES&limit=1`).pipe(map((res: any) => res.artists.items[0] ));
   }
 
   getTrack(id: string) {
     return this.http.get(`${this.url}/tracks/${id}`);
+  }
+
+  updateCurrentArtist(id: string) {
+    this.currentArtistId = id;
+    this.currentArtist$ = this.getArtistInfo(id);
+    this.currentArtistAlbums$ = this.getArtistAlbums(id);
+    this.currentArtistRelated$ = this.getArtistRelated(id);
+    this.currentArtistTracks$ = this.getArtistTracks(id);
+    this.playerService.currentPlaylist$ = this.getArtistTracks(this.currentArtistId);
+    this.playerService.currentTrack$ = this.getArtistTracks(this.currentArtistId).pipe(map(tracks => tracks[0]));
   }
 
 }
