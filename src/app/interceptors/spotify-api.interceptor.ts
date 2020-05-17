@@ -24,7 +24,7 @@ export class SpotifyApiInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const token = 'Bearer BQDUtm5DmO0koPaQ6XtOvEJWOdrqrs3Yg4hd1OFkmyAQ7qCfW16ut2jwtIEWY_ZmMz-pdNgqXabsddXADOc';
+    const token = 'Bearer BQCaK0df9GHpMaurAex5A3h7BSSXZx03ONxUiAUtU4f7ovHf8454ADfIRxCrbffU2OK3DLypLxe5-rSU10c';
     return next.handle(this.addToken(request, token))
   }
 
