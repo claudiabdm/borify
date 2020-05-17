@@ -5,6 +5,7 @@ import { ArtistAboutComponent } from './components/artist/artist-about/artist-ab
 import { ArtistRelatedComponent } from './components/artist/artist-related/artist-related.component';
 
 const routes: Routes = [
+  {path: '', component: ArtistAlbumsComponent},
   {path: 'artist/albums', component: ArtistAlbumsComponent},
   {path: 'artist/about', component: ArtistAboutComponent},
   {path: 'artist/related', component: ArtistRelatedComponent}

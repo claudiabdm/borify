@@ -60,7 +60,7 @@
   <audio #player [src]="(currentTrack | async)?.preview_url" type="audio/mpeg" (timeupdate)="onUpdate($event)" (ended)="onNext()" autoplay></audio>
 
  <!-- STACK -->
-  <svg class="player__icon player__control">
+  <svg class="player__icon player__control" (click)="toggleModal(targetModal)">
     <use xlink:href="../../../assets/icons/sprite.svg#lista" />
   </svg>
   <!-- // STACK -->
@@ -68,4 +68,9 @@
 </nav>
 
 
-{{ (currentTrack | async)?.name }}
+<app-reusable-modal #targetModal [title]="'Now playing'" [modalId]="'cola'" [isLarge]="true"
+  [modalVisible]="false" (close)="toggleModal(targetModal)">
+  <ng-container *ngIf="targetModal.modalVisible">
+    <app-player-queue></app-player-queue>
+  </ng-container>
+</app-reusable-modal>

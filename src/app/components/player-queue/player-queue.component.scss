@@ -1,5 +1,5 @@
-@import '../../../../styles/global/variables';
-@import '../../../../styles/mixins/mixins';
+@import '../../../styles/global/variables';
+@import '../../../styles/mixins/mixins';
 
 .artist-tracks {
   font-size: rem(14px);
@@ -35,7 +35,10 @@
   }
 
   &__album {
-    opacity: 0.7;
+    opacity: 0.5;
+    color: $secondary;
+    font-size: rem(13px);
+    font-weight: $font-weight-normal;
   }
 
   &__time,
@@ -84,4 +87,13 @@
   & + & {
     margin-top: 6px;
   }
+}
+
+.modal__title {
+  padding-top: 20px;
+  padding-left: 20px;
+  color: #fff;
+  font-family: $font-secondary;
+  font-size: rem(14px);
+  text-transform: uppercase;
 }

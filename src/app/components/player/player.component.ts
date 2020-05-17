@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {NgForm} from '@angular/forms';
 import { PlayerService } from 'src/app/services/player.service';
 import { TimeFormatPipe } from 'src/app/shared/time-format.pipe';
 import { SpotifyApiService } from 'src/app/services/spotify-api.service';
 import { map } from 'rxjs/internal/operators/map';
-import { first, take, tap } from 'rxjs/operators';
+import { ReusableModalComponent } from 'src/app/shared/reusable-modal/reusable-modal.component';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-player',
@@ -21,6 +21,7 @@ export class PlayerComponent implements OnInit {
   constructor(
     private playerService: PlayerService,
     private spotifyApi: SpotifyApiService,
+    private modalService: ModalService,
     private timePipe: TimeFormatPipe,
   ) { }
 
@@ -64,7 +65,13 @@ export class PlayerComponent implements OnInit {
     this.currentSecond = e.target.currentTime;
   }
 
-
+  toggleModal(targetModal: ReusableModalComponent) {
+    if (!targetModal.modalVisible) {
+      this.modalService.openModal(targetModal);
+    } else {
+      this.modalService.closeModal(targetModal);
+    }
+  }
   // onRepeat(playList: string[]){
 
   // }

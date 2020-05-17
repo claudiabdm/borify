@@ -21,6 +21,8 @@ import { ArtistTracksComponent } from './components/artist/artist-tracks/artist-
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ReusableModalComponent } from './shared/reusable-modal/reusable-modal.component';
+import { PlayerQueueComponent } from './components/player-queue/player-queue.component';
 
 
 
@@ -38,6 +40,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     ArtistAlbumsComponent,
     ArtistAboutComponent,
     ArtistRelatedComponent,
+    ArtistTracksComponent,
+    ReusableModalComponent,
+    PlayerQueueComponent,
     ArtistTracksComponent
 
   ],

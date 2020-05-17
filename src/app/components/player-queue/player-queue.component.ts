@@ -8,12 +8,13 @@ import { ReusableModalComponent } from 'src/app/shared/reusable-modal/reusable-m
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
-  selector: 'app-artist-tracks',
-  templateUrl: './artist-tracks.component.html',
-  styleUrls: ['./artist-tracks.component.scss']
+  selector: 'app-player-queue',
+  templateUrl: './player-queue.component.html',
+  styleUrls: ['./player-queue.component.scss']
 })
-export class ArtistTracksComponent implements OnInit {
+export class PlayerQueueComponent implements OnInit {
 
+  onHidden: boolean = true;
   hidden: boolean = true;
 
   playlists = ['Rock', 'Pop'];
@@ -24,12 +25,13 @@ export class ArtistTracksComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.spotifyApi.currentArtistTracks$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId);
+    this.playerService.currentQueue$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId);
   }
 
-  get currentArtistTracks() {
-    return this.spotifyApi.currentArtistTracks$;
+  get queue() {
+    return this.playerService.currentQueue$;
   }
+
   get currentTrack() {
     return this.playerService.currentTrack$;
   }
@@ -40,6 +42,7 @@ export class ArtistTracksComponent implements OnInit {
 
   onMouseIn(track) {
     track.hidden = false;
+
   }
   onMouseOut(track) {
     track.hidden = true;

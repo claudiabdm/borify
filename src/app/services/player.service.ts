@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { SpotifyApiService } from './spotify-api.service';
 import { map } from 'rxjs/internal/operators/map';
 import { switchMap, filter } from 'rxjs/operators';
@@ -9,14 +9,14 @@ import { switchMap, filter } from 'rxjs/operators';
 })
 export class PlayerService {
 
+  currentQueue$: Observable<Object>;
   currentPlaylist$: Observable<Object>;
   currentTrack$: Observable<Object>;
   currentTrackDuration$: Observable<Object>;
   currentTrackId;
+  // currentTrackSource: BehaviorSubject<Object> = new BehaviorSubject(null);
 
-  constructor(
-    private spotifyApi: SpotifyApiService
-  ) { }
+  constructor() { }
 
   play(player: HTMLMediaElement) {
     player.paused ? player.play() : player.pause();
@@ -46,11 +46,24 @@ export class PlayerService {
             const idx = playlist.findIndex((song: any) => song.id === id);
             const nextSong = idx < playlist.length - 1 ? playlist[idx + 1] : playlist[playlist.length - 1];
             return nextSong;
-          })
+          }),
         )
       })
     )
   }
+
+  select(track: any) {
+    return this.currentPlaylist$.pipe(
+      map((playlist: any[]) => {
+        const selectedSong = playlist.find((song: any) => song.id === track.id);
+        return selectedSong;
+      })
+    )
+  }
+
+  // selectNext(track: any) {
+  //   this.currentTrackSource.next(track);
+  // }
 
   shuffle(): Observable<Object> {
     // return this.currentPlaylist$.pipe(

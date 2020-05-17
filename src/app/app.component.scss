@@ -13,12 +13,6 @@
   grid-template-columns: rem(220px) 1fr;
   overflow: hidden;
 
-
-  &__header {
-    grid-area: header;
-    background: none;
-  }
-
   &__sidebar {
     grid-area: sidebar;
     height: 100vh;
@@ -27,23 +21,31 @@
     overflow: auto;
   }
 
-  &__artist {
-    grid-area: artist;
-    background: none;
-  }
-
-  &__player {
-    grid-area: player;
-    background-color: $tertiary;
-    opacity: 0.9;
-  }
-
-
   &__bg {
     height: 100vh;
     padding-bottom: rem(63px);
     background-image: url('../assets/images/BASIC/BG.PNG');
     overflow: auto;
   }
+
+  &__artist {
+    grid-area: artist;
+    background: none;
+  }
+
+
+  &__header {
+    grid-area: header;
+    background: none;
+  }
+
+
+  &__player {
+    grid-area: player;
+    background-color: rgba($tertiary, 0.9);
+    z-index: 10;
+  }
+
+
 
 }

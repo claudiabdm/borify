@@ -36,6 +36,7 @@ export class ArtistRelatedComponent implements OnInit {
     this.spotifyApi.currentArtistTracks$ = this.spotifyApi.getArtistTracks(id);
     this.player.currentPlaylist$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId);
     this.player.currentTrack$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId).pipe(map(tracks => tracks[0]));
+    this.player.currentQueue$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId).pipe(map(tracks => tracks[0]));
     this.route.navigate(['artist/albums']);
   }
 
