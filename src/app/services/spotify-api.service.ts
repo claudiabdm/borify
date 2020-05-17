@@ -62,4 +62,8 @@ export class SpotifyApiService {
       );
   }
 
+  searchKeyWord(input: string) {
+    return this.http.get(`${this.url}/search?q=${input}`)
+  }
+
 }

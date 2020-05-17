@@ -4,7 +4,8 @@
       <svg class="header__search-icon">
         <use xlink:href="../../assets/icons/sprite.svg#zoom"></use>
       </svg>
-      <input class="header__search-bar" type="text" placeholder="Type here to search"/>
+      <input class="header__search-bar" type="text" placeholder="Type here to search" [(ngModel)]="search" id="search" name="something" (input)="onSearchChange($event.target.value)"/>
+      {{search}}
     </div>
 
     <div class="header__user">
