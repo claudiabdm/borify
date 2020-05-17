@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { PlaylistsService } from 'src/app/services/playlists.service';
@@ -11,7 +11,7 @@ import { SpotifyApiService } from 'src/app/services/spotify-api.service';
 })
 export class ModalComponent implements OnInit {
 
-
+  @Input() type: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -24,12 +24,17 @@ export class ModalComponent implements OnInit {
   }
 
   async createPlayList(input) {
-    const track = await this.spotifyApi.getTrack(this.playlistService.selectedSongId).toPromise();
-    const newPlaylist = {
+    let newPlaylist = {
       name: input,
-      tracks: [track],
+      tracks: [],
     }
-    this.playlistService.addPlayList(newPlaylist);
+    try {
+      const track = await this.spotifyApi.getTrack(this.playlistService.selectedSongId).toPromise();
+      newPlaylist.tracks.push(track);
+      this.playlistService.addPlayList(newPlaylist);
+    } catch(err) {
+      this.playlistService.addPlayList(newPlaylist);
+    }
   }
 
 }

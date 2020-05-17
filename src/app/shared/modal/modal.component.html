@@ -2,7 +2,7 @@
   <button class="modal__btn" mat-dialog-close="false">&times;</button>
   <h2 class="modal__title" mat-dialog-title >CREATE PLAYLIST</h2>
   <mat-dialog-content>
-    <form class="modal__form" action="..." method="...">
+    <form class="modal__form">
       <label for="name" class="modal__form-label">Name</label>
       <input #myInput type="text" id="name" name="name" class="modal__form-input">
     </form>
@@ -10,6 +10,5 @@
   <mat-dialog-actions>
     <button class="modal__btn modal__btn--create" mat-dialog-close="true" (click)="createPlayList(myInput.value)">Create</button>
   </mat-dialog-actions>
-
 </div>
 
