@@ -56,22 +56,7 @@ export class PlayerService {
     )
   }
 
-  // selectNext(track: any) {
-  //   this.currentTrackSource.next(track);
-  // }
-
   shuffle(): Observable<Object> {
-    // return this.currentPlaylist$.pipe(
-    //   map((playlist: any[]) => {
-    //     debugger
-    //     for (let i = playlist.length - 1; i > 0; i--) {
-    //       const j = Math.floor(Math.random() * (i + 1));
-    //       [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
-    //     }
-    //     console.log(playlist)
-    //     return playlist;
-    //   })
-    // )
     return this.currentPlaylist$.pipe(
       map((playlist: any[]) => {
         for (let i = playlist.length - 1; i > 0; i--) {

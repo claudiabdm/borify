@@ -1,9 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SpotifyApiService } from 'src/app/services/spotify-api.service';
-import { TimeFormatPipe } from 'src/app/shared/time-format.pipe';
 import { PlayerService } from 'src/app/services/player.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
 import { ReusableModalComponent } from 'src/app/shared/reusable-modal/reusable-modal.component';
 import { ModalService } from 'src/app/services/modal.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
@@ -31,7 +28,7 @@ export class PlayerQueueComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.playerService.currentPlaylist$);
+
   }
 
   get queue() {
@@ -43,7 +40,6 @@ export class PlayerQueueComponent implements OnInit {
   }
 
   get playlists() {
-    console.log(this.playlistService.playlists);
     return this.playlistService.playlists;
   }
 
