@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { ReusableModalComponent } from 'src/app/shared/reusable-modal/reusable-modal.component';
 import { ModalService } from 'src/app/services/modal.service';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { PlaylistsService } from 'src/app/services/playlists.service';
 
 @Component({
   selector: 'app-artist-tracks',
@@ -15,12 +18,14 @@ import { ModalService } from 'src/app/services/modal.service';
 export class ArtistTracksComponent implements OnInit {
 
   hidden: boolean = true;
+  selectedSongId: string = '';
 
-  playlists = ['Rock', 'Pop'];
   constructor(
     private spotifyApi: SpotifyApiService,
     private playerService: PlayerService,
-    private modalService: ModalService
+    private playlistService: PlaylistsService,
+    private modalService: ModalService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -34,8 +39,19 @@ export class ArtistTracksComponent implements OnInit {
     return this.playerService.currentTrack$;
   }
 
+  get playlists() {
+    return this.playlistService.playlists;
+  }
+
   playSong(track: any) {
+    this.playerService.currentPlaylist$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId);
     this.playerService.currentTrack$ = this.playerService.select(track);
+  }
+
+  async addToPlaylist(selectedPlaylist) {
+    const playlist = this.playlistService.playlists.find(playlist => playlist.name === selectedPlaylist.name);
+    const track = await this.spotifyApi.getTrack(this.playlistService.selectedSongId).toPromise();
+    playlist.tracks.push(track);
   }
 
   onMouseIn(track) {
@@ -45,16 +61,20 @@ export class ArtistTracksComponent implements OnInit {
     track.hidden = true;
   }
 
-  addToPlaylist() {
-
-  }
-
-  toggleModal(targetModal: ReusableModalComponent, id) {
+  toggleModal(targetModal: ReusableModalComponent, id: string) {
+    if (id) {
+      this.playlistService.selectedSongId = id;
+    }
     if (!targetModal.modalVisible) {
       this.modalService.openModal(targetModal);
     } else {
       this.modalService.closeModal(targetModal);
     }
+  }
+
+
+  openDialog() {
+    let dialogRef = this.dialog.open(ModalComponent, {panelClass: 'custom-dialog-container'});
   }
 
 }

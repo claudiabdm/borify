@@ -1,18 +1,17 @@
-<li class="artist-tracks__track"
-  (mouseover)="onHidden = false" (mouseout)="onHidden = true" [id]="(currentTrack | async)?.id">
+<li class="artist-tracks__track" (mouseover)="onHidden = false" (mouseout)="onHidden = true"
+  [id]="(currentTrack | async)?.id">
   <div class="artist-tracks__info">
     <p class="artist-tracks__name">{{ (currentTrack | async)?.name }}</p>
     <p class="artist-tracks__album"> {{ (currentTrack | async)?.album.name }}</p>
   </div>
   <time class="artist-tracks__time">{{ (currentTrack | async)?.duration_ms / 1000 | timeFormat }}</time>
   <svg class="artist-tracks__icon artist-tracks__icon--plus" (click)="toggleModal(targetModal,
-  '')"
-    [class.artist-tracks__icon--hide]="onHidden">
+  '')" [class.artist-tracks__icon--hide]="onHidden">
     <use xlink:href="../../../assets/icons/sprite.svg#plus" />
   </svg>
 </li>
 
-<h2 class="modal__title">Next up</h2>
+<h2 class="reusable-modal__subtitle">Next up</h2>
 
 <ul class="artist-tracks__list">
   <li *ngFor="let track of queue | async" class="artist-tracks__track" (dblclick)="playSong(track)"
@@ -29,16 +28,17 @@
   </li>
 </ul>
 
-<app-reusable-modal #targetModal [title]="'Add to playlist'" [modalId]="" [isLarge]="false" [modalVisible]="false"
-  (close)="toggleModal(targetModal, '')">
+
+<app-reusable-modal #targetModal [title]="'Add to playlist'" [modalId]="" [isLarge]="false"
+  [modalVisible]="false" (close)="toggleModal(targetModal, '')">
   <ng-container *ngIf="targetModal.modalVisible">
-    <ul class="modal__list">
-      <li *ngFor="let playlist of playlists" class="modal__elem" (click)="addToPlaylist()">
-        {{ playlist }}
+    <ul class="reusable-modal__list">
+      <li *ngFor="let playlist of playlists" class="reusable-modal__elem" (click)="addToPlaylist(playlist)">
+        {{ playlist.name }}
       </li>
     </ul>
-    <div class="modal__action">
+    <button type="button" (click)="openDialog()" (click)="toggleModal(targetModal, '')" class="reusable-modal__action">
       New playlist
-    </div>
+    </button>
   </ng-container>
 </app-reusable-modal>

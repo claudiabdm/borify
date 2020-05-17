@@ -3,7 +3,6 @@ import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@ang
 @Component({
   selector: 'app-reusable-modal',
   templateUrl: './reusable-modal.component.html',
-  styleUrls: ['./reusable-modal.component.scss']
 })
 export class ReusableModalComponent implements OnInit {
 

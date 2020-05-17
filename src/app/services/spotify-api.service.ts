@@ -66,4 +66,8 @@ export class SpotifyApiService {
     return this.http.get(`${this.url}/search?q=${input}`)
   }
 
+  getTrack(id: string) {
+    return this.http.get(`${this.url}/tracks/${id}`);
+  }
+
 }
