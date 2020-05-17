@@ -7,24 +7,13 @@ import { Subject, Observable } from 'rxjs';
 })
 export class PlaylistsService {
 
-  // private _listSource = new Subject<string>();
-  // listSource$ = this._listSource.asObservable();
-
-  // private _list = new Subject<any>();
-  // list$ = this._list.asObservable();
-
-  public playlists = ['Pop', 'Rock'];
+  public playlists = [];
+  selectedSongId: string = '';
 
 
   constructor() { }
 
-  // sendMessage(message: string) {
-  //   this._listSource.next(message);
-  // }
-
-  addPlayList(playListName: any) {
-    console.log(playListName)
-    return this.playlists.push(playListName);
-
+  addPlayList(playlist: any) {
+    return this.playlists.push(playlist);
   }
 }
