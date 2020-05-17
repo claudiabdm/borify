@@ -25,7 +25,7 @@ export class PlayerQueueComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.playerService.currentQueue$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId);
+    this.playerService.currentQueue$ = this.playerService.currentPlaylist$;
   }
 
   get queue() {
