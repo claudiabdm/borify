@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map, scan, tap, switchMap } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { PlayerService } from './player.service';
+import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,26 @@ export class SpotifyApiService {
 
 
   constructor(
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
     private http: HttpClient,
     private router: Router,
     private playerService: PlayerService
   ) { }
+
+  getToken(): Observable<any> {
+    this.storage.clear();
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('grant_type', 'client_credentials');
+    let body = params.toString();
+    return this.http.post('https://accounts.spotify.com/api/token', body, {headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': environment.spotifyApiBasicToken,
+    }})
+      .pipe(
+        tap((res: any) => this.storage.set('token', `Bearer ${res.access_token}`)),
+        map((res: any) => `Bearer ${res.access_token}`)
+      );
+  }
 
   getArtistInfo(id: string) {
     return this.http.get(`${this.url}/artists/${id}`);
@@ -67,7 +84,7 @@ export class SpotifyApiService {
   }
 
   searchKeyWord(input: string) {
-    return this.http.get(`${this.url}/search?q=${input}&type=artist&market=ES&limit=1`).pipe(map((res: any) => res.artists.items[0] ));
+    return this.http.get(`${this.url}/search?q=${input}&type=artist&market=ES&limit=1`).pipe(map((res: any) => res.artists.items[0]));
   }
 
   getTrack(id: string) {

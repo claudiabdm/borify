@@ -4,28 +4,41 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpClient,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { SpotifyApiService } from '../services/spotify-api.service';
-import { tap } from 'rxjs/internal/operators/tap';
-import { catchError, switchMap, flatMap, map, retry } from 'rxjs/operators';
+import { Observable, empty, throwError } from 'rxjs';
+import { catchError, switchMap, map } from 'rxjs/operators';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { SpotifyApiService } from '../services/spotify-api.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class SpotifyApiInterceptor implements HttpInterceptor {
 
   constructor(
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
     private spotifyApi: SpotifyApiService,
-    private http: HttpClient,
-    @Inject(LOCAL_STORAGE) private storage: StorageService
+    private router: Router,
   ) { }
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const token = 'Bearer BQB1rTS0Ju_4cw0HGznzpqJwgcCKKbHQN9GYhGuGWS-EkhS9CX3oxcUfdZh_rsb9SVueJZ5nQ5fp0MTI5bw';
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const authUrl = 'https://accounts.spotify.com/api/token';
+    const token = this.storage.get('token');
+
+    if (request.url === authUrl || !token) {
+      return next.handle(request);
+    }
+
     return next.handle(this.addToken(request, token))
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          if (err.status === 401) {
+            window.alert('Invalid token, retrieving a new one.')
+            location.reload();
+          }
+          return empty();
+        })
+      )
   }
 
   private addToken(request: HttpRequest<unknown>, token: string) {

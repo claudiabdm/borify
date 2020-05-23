@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SpotifyApiService } from './services/spotify-api.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'music-player';
+
+
+  constructor(
+    private spotifyApi: SpotifyApiService
+  ){}
+
+  ngOnInit(): void {
+    this.spotifyApi.getToken().subscribe();
+  }
 }
