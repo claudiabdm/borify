@@ -6,7 +6,7 @@
           <use xlink:href="../../assets/icons/sprite.svg#zoom"></use>
         </svg>
       </label>
-      <input class="header__search-bar" type="text" placeholder="Type here to search artist name..." id="search"
+      <input class="header__search-bar" type="text" placeholder="Type here artist name to find artist info..." id="search"
         formControlName="currentSearch" required [name]="'currentSearch'" (submit)="onSearchSubmit(searchForm)">
     </div>
     <div *ngIf="invalidQuery">

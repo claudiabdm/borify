@@ -6,7 +6,6 @@
   justify-content: space-between;
   padding-right: rem(25px);
 
-
   &__title {
     font-family: $font-secondary;
     font-weight: $font-weight-normal;
@@ -56,6 +55,7 @@
     color: red;
     margin-left: rem(35px);
   }
+  margin-bottom: 25px;
 }
 
 a {
