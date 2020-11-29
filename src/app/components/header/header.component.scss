@@ -1,6 +1,5 @@
-@import '../../../styles/global/variables';
-@import '../../../styles/mixins/mixins';
-
+@import "../../../styles/global/variables";
+@import "../../../styles/mixins/mixins";
 
 .header {
   display: flex;
@@ -12,12 +11,10 @@
   padding-top: rem(13px);
   //border: 1px solid green;
 
-
   // SEARCH
   &__search {
-
-      @include flex(center, center);
-
+    @include flex(center, center);
+    color: #fff;
     &-icon {
       @include size(rem(13px), rem(13px));
     }
@@ -27,6 +24,7 @@
       margin-left: 13.12px;
       padding: 5px;
       border: none;
+      color: #fff;
       background: transparent;
 
       &::placeholder {
@@ -38,7 +36,6 @@
       }
     }
   }
-
 }
 
 .header__user {
@@ -51,12 +48,10 @@
   .header__username {
     font-family: $font-primary;
     font-weight: $font-weight-semibold;
-    color: white
+    color: white;
   }
 
   .header__img {
     margin-left: rem(15px);
-
-
   }
 }

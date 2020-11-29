@@ -11,6 +11,7 @@ const routes: Routes = [
     component: ArtistComponent,
     children:
       [
+        { path: '', redirectTo: 'albums', pathMatch: 'full'},
         { path: 'albums', component: ArtistAlbumsComponent },
         { path: 'about', component: ArtistAboutComponent },
         { path: 'related', component: ArtistRelatedComponent },

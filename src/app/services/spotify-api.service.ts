@@ -1,11 +1,13 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { map, scan, tap, switchMap } from 'rxjs/operators';
-import { Observable, of, Subject } from 'rxjs';
-import { Router } from '@angular/router';
-import { PlayerService } from './player.service';
+import { map, tap, switchMap, shareReplay, startWith } from 'rxjs/operators';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { Artist } from '../shared/models/artist';
+import { Album } from '../shared/models/album';
+import { Track } from '../shared/models/track';
+import { PlayerService } from './player.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,73 +15,78 @@ import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 export class SpotifyApiService {
 
   url = environment.spotifyApiUrl;
-  currentArtistId: string = '3AA28KZvwAUcZuOKwyblJQ';
-  currentArtist$: Observable<Object>;
-  currentArtistAlbums$: Observable<Object>;
-  currentArtistRelated$: Observable<Object>;
-  currentArtistTracks$: Observable<Object>;
 
+  defaultArtist: Artist = {
+    id: '3AA28KZvwAUcZuOKwyblJQ',
+    name: 'Gorillaz',
+  }
+
+  defaultTrackId = '0d28khcov6AiegSCpG5TuT';
+
+  private artistIdSubject = new BehaviorSubject<string>(this.defaultArtist.id);
+  artistIdSelectedAction$ = this.artistIdSubject.asObservable();
+
+  private albumIdSubject = new BehaviorSubject<string>(null);
+  albumIdSelectedAction$ = this.albumIdSubject.asObservable();
+
+  currentArtist$: Observable<Artist> = this.artistIdSelectedAction$
+    .pipe(
+      switchMap(artistId => this.http.get<Artist>(`${this.url}/artists/${artistId}`)),
+      shareReplay(1)
+    );
+
+  currentArtistAlbums$: Observable<Album[]> = this.artistIdSelectedAction$
+    .pipe(
+      switchMap(artistId => this.http.get<{ href: string, items: Album[] }>(`${this.url}/artists/${artistId}/albums?include_groups=album&market=ES`)),
+      map((res) => {
+        const addedItemsName = []
+        const sortedAlbums = res.items.reduce((filtered, item) => {
+          if (!addedItemsName.includes(item.name)) {
+            filtered.push(item);
+            addedItemsName.push(item.name);
+          }
+          return filtered;
+        }, []).sort((a, b) =>  new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
+        console.log(sortedAlbums);
+        return sortedAlbums;
+      }),
+      shareReplay(1)
+    );
+
+  currentAlbumTracks$: Observable<Track[]> = this.albumIdSelectedAction$
+    .pipe(
+      switchMap(albumId => this.http.get<Album>(`${this.url}/albums/${albumId}`)),
+      map(album => album.tracks['items'].map((track: Track) => { track['album'] = { ...album }; return track; })),
+      shareReplay(1)
+    )
+
+  currentArtistRelated$: Observable<Artist[]> = this.artistIdSelectedAction$
+    .pipe(
+      switchMap(artistId => this.http.get<{ artist: Artist }>(`${this.url}/artists/${artistId}/related-artists`).pipe(map((res: any) => res.artists))),
+      shareReplay(1)
+    );
+
+  currentArtistTopTracks$: Observable<Track[]> = this.artistIdSelectedAction$
+    .pipe(
+      switchMap(artistId => this.http.get<{ tracks: Track[] }>(`${this.url}/artists/${artistId}/top-tracks?country=ES`).pipe(map((res: any) => res.tracks))),
+      shareReplay(1)
+    );
 
   constructor(
     @Inject(LOCAL_STORAGE) private storage: StorageService,
     private http: HttpClient,
-    private router: Router,
-    private playerService: PlayerService
   ) { }
 
-  getToken(): Observable<any> {
+
+  getToken(): Observable<string> {
     this.storage.clear();
     let params: URLSearchParams = new URLSearchParams();
     params.set('grant_type', 'client_credentials');
     let body = params.toString();
-    return this.http.post('https://accounts.spotify.com/api/token', body, {headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': environment.spotifyApiBasicToken,
-    }})
+    return this.http.post('https://accounts.spotify.com/api/token', body)
       .pipe(
         tap((res: any) => this.storage.set('token', `Bearer ${res.access_token}`)),
         map((res: any) => `Bearer ${res.access_token}`)
-      );
-  }
-
-  getArtistInfo(id: string) {
-    return this.http.get(`${this.url}/artists/${id}`);
-  }
-
-  getArtistAlbums(id: string) {
-    return this.http.get(`${this.url}/artists/${id}/albums?include_groups=album&market=ES`)
-      .pipe(
-        map((res: any) => res.items
-          .filter((item, idx: number) => {
-            if (idx === res.items.length - 1) {
-              return item.name !== res.items[idx - 1].name;
-            }
-            return item.name !== res.items[idx + 1].name;
-          })
-          .sort((a, b) => new Date(a.release_date) > new Date(b.release_date))
-        )
-      );
-  }
-
-  getArtistRelated(id: string) {
-    return this.http.get(`${this.url}/artists/${id}/related-artists`).pipe(map((res: any) => res.artists));
-  }
-
-  getArtistTracks(id: string) {
-    return this.http.get(`${this.url}/artists/${id}/top-tracks?country=ES`).pipe(map((res: any) => res.tracks));
-  }
-
-  getAlbumTracks(id: string) {
-    return this.http.get(`${this.url}/albums/${id}`)
-      .pipe(
-        map((res: any) => res.tracks.items.map(track => {
-          track.album = {
-            name: res.name,
-            images: [{ url: res.images[0].url }],
-          };
-          return track;
-        })
-        )
       );
   }
 
@@ -87,18 +94,12 @@ export class SpotifyApiService {
     return this.http.get(`${this.url}/search?q=${input}&type=artist&market=ES&limit=1`).pipe(map((res: any) => res.artists.items[0]));
   }
 
-  getTrack(id: string) {
-    return this.http.get(`${this.url}/tracks/${id}`);
+  changeSelectedArtist(artistId: string) {
+    this.artistIdSubject.next(artistId);
   }
 
-  updateCurrentArtist(id: string) {
-    this.currentArtistId = id;
-    this.currentArtist$ = this.getArtistInfo(id);
-    this.currentArtistAlbums$ = this.getArtistAlbums(id);
-    this.currentArtistRelated$ = this.getArtistRelated(id);
-    this.currentArtistTracks$ = this.getArtistTracks(id);
-    this.playerService.currentPlaylist$ = this.getArtistTracks(this.currentArtistId);
-    this.playerService.currentTrack$ = this.getArtistTracks(this.currentArtistId).pipe(map(tracks => tracks[0]));
+  changeSelectedAlbum(albumId: string) {
+    this.albumIdSubject.next(albumId);
   }
 
 }

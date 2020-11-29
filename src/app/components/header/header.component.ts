@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyApiService } from 'src/app/services/spotify-api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { PlayerService } from 'src/app/services/player.service';
 import { Router } from '@angular/router';
 
 
@@ -38,8 +37,7 @@ export class HeaderComponent implements OnInit {
         } else {
           this.invalidArtist = false;
           this.invalidQuery = false;
-          this.spotifyApi.updateCurrentArtist(artist.id);
-          this.router.navigateByUrl(`artist/${artist.id}/albums`);
+          this.router.navigate(['artist', artist.id, 'albums']);
         }
       });
     }

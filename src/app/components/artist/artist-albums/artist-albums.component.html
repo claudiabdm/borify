@@ -1,7 +1,7 @@
-<div class="info">
-  <article *ngFor="let album of currentArtistAlbums | async" class="info__article" (click)="changeCurrentAlbumTracks(album.id)">
-    <img [src]="album.images[1].url" width="170px" height="170px" alt="" class="info__img">
+<div class="info" *ngIf="currentArtistAlbums$ | async as currentArtistAlbums">
+  <article *ngFor="let album of currentArtistAlbums" class="info__article" (click)="changeCurrentAlbumTopTracks(album)">
+    <img [src]="album.images[1].url" width="170px" height="170px" alt="" class="info__img" />
     <h3 class="info__name">{{ album.name }}</h3>
-    <p class="info__date">{{ album.release_date | date: 'yyyy' }}</p>
+    <p class="info__date">{{ album.release_date | date: "yyyy" }}</p>
   </article>
 </div>
