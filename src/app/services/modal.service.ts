@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PlaylistsService } from './playlists.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class ModalService {
   closeModal(targetModal){
     clearTimeout();
     targetModal.modal.nativeElement.firstElementChild.classList.remove('reusable-modal--show');
-    setTimeout(()=> targetModal.modalVisible = false, 350)
+    setTimeout(()=> targetModal.modalVisible = false, 350);
   }
 
 

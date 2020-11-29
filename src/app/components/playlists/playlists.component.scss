@@ -1,26 +1,21 @@
-@import '../../../styles/global/variables';
-@import '../../../styles/mixins/mixins';
+@import "global/variables";
+@import "mixins/mixins";
 
 .playlist {
   display: flex;
   justify-content: space-between;
-  padding-right: rem(25px);
 
   &__title {
     font-family: $font-secondary;
     font-weight: $font-weight-normal;
     font-size: rem(19px);
     color: $base;
-    margin-left: rem(35px);
     margin-bottom: rem(22px);
-
   }
 
   &__control {
     @include flex(center, center);
     @include size(rem(15px), rem(13px));
-
-    margin-top: rem(4px);
 
     border: 0;
     background-color: transparent;
@@ -29,39 +24,33 @@
       cursor: pointer;
     }
 
-    &:focus>svg {
+    &:focus > svg {
       opacity: 1;
     }
-
   }
 
   &__icon {
     @include size(rem(15px), rem(13px));
     opacity: 0.65;
-
   }
 }
 
-
-
-
-
-
-
 .playlist-list__elem {
+  $colors: red, orange, yellow, green, blue, purple;
+  $repeat: 20;
   cursor: pointer;
-  &::before {
-    content: "•";
-    color: red;
-    margin-left: rem(35px);
+  @for $i from 1 through $repeat {
+    &:nth-child(#{length($colors)}n + #{$i}) {
+      &::before {
+        content: "•";
+        color: lighten(nth($colors, random(length($colors))), 20%);
+      }
+    }
   }
-  margin-bottom: 25px;
 }
 
 a {
-  margin-left: 15px;
   color: white;
   font-family: $font-primary;
   color: $secondary;
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { PlayerService } from 'src/app/services/player.service';
 import { TimeFormatPipe } from 'src/app/shared/time-format.pipe';
 import { SpotifyApiService } from 'src/app/services/spotify-api.service';
@@ -6,19 +6,28 @@ import { map } from 'rxjs/internal/operators/map';
 import { ReusableModalComponent } from 'src/app/shared/reusable-modal/reusable-modal.component';
 import { ModalService } from 'src/app/services/modal.service';
 import { tap } from 'rxjs/internal/operators/tap';
+import { combineLatest, Observable } from 'rxjs';
+import { Track } from 'src/app/shared/models/track';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss']
+  styleUrls: ['./player.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerComponent implements OnInit {
 
   @ViewChild('player') playerElem: ElementRef;
 
+  songDuration$: Observable<number>;
+  currentTrackAndQueue$: Observable<{ currentTrack: Track, currentQueue: Track[] }>;
+  currentQueue$: Observable<Track[]>;
+  playing$: Observable<boolean>;
+
   currentTime: string = '00:00';
   currentSecond: number = 0;
-  playing: boolean = false;
+  random: boolean = false;
 
   constructor(
     private playerService: PlayerService,
@@ -27,47 +36,50 @@ export class PlayerComponent implements OnInit {
     private timePipe: TimeFormatPipe,
   ) { }
 
-
   ngOnInit(): void {
-    this.playerService.currentPlaylist$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId);
-    this.playerService.currentTrack$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId).pipe(map(tracks => tracks[0]));
+    this.currentTrackAndQueue$ = this.playerService.currentTrackAndQueue$;
+    this.playing$ = this.playerService.playSelectedAction$.pipe(
+      tap((isPlaying: boolean) => {
+        if (this.playerElem && isPlaying) {
+          this.playerElem.nativeElement.play();
+        } else if (this.playerElem) {
+          this.playerElem.nativeElement.pause();
+        }
+      }),
+    );
   }
 
-  get songDuration() {
-    return this.playerService.currentTrack$.pipe(map((track: any) => this.timePipe.transform(track.duration_ms)));
+  onPlay(state: boolean) {
+    this.playerService.changePlayState(state)
   }
 
-  get songDurationNum() {
-    return this.playerService.currentTrack$.pipe(map((track: any) => track.preview_url.duration / 1000));
+  onPrev(trackAndQueue: { currentTrack: Track, currentQueue: Track[] }) {
+    const { currentTrack, currentQueue } = trackAndQueue;
+    this.playerService.prevTrack(currentTrack, currentQueue);
   }
 
-  get currentTrack() {
-    return this.playerService.currentTrack$;
+  onNext(trackAndQueue: { currentTrack: Track, currentQueue: Track[] }) {
+    const { currentTrack, currentQueue } = trackAndQueue;
+    this.playerService.nextTrack(currentTrack, currentQueue);
   }
 
-  onPlay() {
-    if (this.playerElem.nativeElement.paused) {
-      this.playerElem.nativeElement.play().then(() => { this.playing = true }).catch((err) => window.alert(err + 'Try again with other song.'))
+  onRandom(currentQueue: Track[]) {
+    if (this.random) {
+      this.playerService.unrandomQueue(currentQueue);
+      this.random = false;
     } else {
-      this.playerElem.nativeElement.pause();
-      this.playing = false;
+      this.playerService.randomQueue(currentQueue);
+      this.random = true;
     }
-  }
-
-  onPrev() {
-    this.playerService.currentTrack$ = this.playerService.prev();
-  }
-
-  onNext() {
-    this.playerService.currentTrack$ = this.playerService.next();
-  }
-
-  onRandom() {
   }
 
   onUpdate(e) {
     this.currentTime = this.timePipe.transform(e.target.currentTime);
-    this.currentSecond = e.target.currentTime;
+    this.currentSecond = e.target.currentTime * 1000;
+  }
+
+  onChangeTime(e) {
+    this.playerElem.nativeElement.currentTime = e.target.value / 1000;
   }
 
   toggleModal(targetModal: ReusableModalComponent) {
@@ -77,8 +89,5 @@ export class PlayerComponent implements OnInit {
       this.modalService.closeModal(targetModal);
     }
   }
-  // onRepeat(playList: string[]){
-
-  // }
 
 }

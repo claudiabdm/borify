@@ -2,14 +2,14 @@
   <h1 class="playlist__title">PLAYLIST</h1>
   <button class="playlist__control" type="button" (click)="openDialog()">
     <svg class="playlist__icon">
-      <use xlink:href="../../assets/icons/sprite.svg#plus"></use>
+      <use href="/assets/icons/sprite.svg#plus"></use>
     </svg>
   </button>
 </div>
 
 
-<ul class="playlist-list">
-  <li class="playlist-list__elem" *ngFor="let playlist of playlists" (click)="selectPlaylist(playlist)">
+<ul class="playlist-list" *ngIf="playlists$ | async as playlists">
+  <li class="playlist-list__elem" *ngFor="let playlist of playlists" (click)="onSelectPlaylist(playlist)">
     {{ playlist.name }}
   </li>
 </ul>

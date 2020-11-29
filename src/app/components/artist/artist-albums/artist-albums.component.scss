@@ -1,0 +1,9 @@
+@import "mixins/mixins";
+
+.info__article {
+  &:hover::before {
+    content: "Play album";
+    @include absolute(0, 0, 0, 0);
+    @include flex(center, center);
+  }
+}

@@ -1,17 +1,17 @@
-<section class="artist">
+<section class="artist" *ngIf="currentArtist$ | async as currentArtist">
   <div class="artist__main">
     <button type="button" class="artist__save">
       <svg class="artist__save-icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#star" />
+        <use href="/assets/icons/sprite.svg#star" />
       </svg>
       Save to My stars
     </button>
-    <h1 class="artist__name">{{ (currentArtist | async)?.name }}</h1>
+    <h1 class="artist__name">{{ currentArtist.name }}</h1>
     <section class="artist__info artist-info">
       <nav class="artist-info__navbar">
-        <a class="artist-info__section" #albumsRoute="routerLinkActive" routerLinkActive="artist-info__section--selected" [routerLink]="'albums'"><span class="artist-info__name">Albums</span></a>
-        <a class="artist-info__section" #aboutRoute="routerLinkActive" routerLinkActive="artist-info__section--selected" [routerLink]="'about'"><span class="artist-info__name">About</span></a>
-        <a class="artist-info__section" #relatedRoute="routerLinkActive" routerLinkActive="artist-info__section--selected" [routerLink]="'related'"><span class="artist-info__name">Related Artist</span></a>
+        <a class="artist-info__section" #albumsRoute="routerLinkActive" routerLinkActive="artist-info__section--selected" [routerLink]="['albums']"><span class="artist-info__name">Albums</span></a>
+        <a class="artist-info__section" #aboutRoute="routerLinkActive" routerLinkActive="artist-info__section--selected" [routerLink]="['about']"><span class="artist-info__name">About</span></a>
+        <a class="artist-info__section" #relatedRoute="routerLinkActive" routerLinkActive="artist-info__section--selected" [routerLink]="['related']"><span class="artist-info__name">Related Artist</span></a>
       </nav>
       <router-outlet></router-outlet>
     </section>

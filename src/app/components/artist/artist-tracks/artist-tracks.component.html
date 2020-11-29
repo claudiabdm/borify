@@ -1,32 +1,66 @@
-<h3 class="artist-tracks__title">Random selection</h3>
+<h3 class="artist-tracks__title">Top Artist Tracks</h3>
 
-<ul class="artist-tracks__list">
-  <li *ngFor="let track of currentArtistTracks | async" class="artist-tracks__track" (dblclick)="playSong(track)"
-    (mouseover)="onMouseIn(track)" (mouseout)="onMouseOut(track)" [id]="track.id">
-    <div class="artist-tracks__info">
-      <p class="artist-tracks__name">{{ track.name }}</p>
-      <p class="artist-tracks__album"> {{ track.album.name }}</p>
-    </div>
-    <svg class="artist-tracks__icon" *ngIf="track.id === (currentTrack | async)?.id">
-      <use xlink:href="../../../assets/icons/sprite.svg#lineas" />
-    </svg>
-    <time class="artist-tracks__time">{{ track.duration_ms / 1000 | timeFormat }}</time>
-    <svg class="artist-tracks__icon artist-tracks__icon--plus" (click)="toggleModal(targetModal, track.id)"
-      [class.artist-tracks__icon--hide]="track.hidden || track.hidden === undefined">
-      <use xlink:href="../../../assets/icons/sprite.svg#plus" />
-    </svg>
-  </li>
-</ul>
+<ng-container *ngIf="currentTrack$ | async as currentTrack">
+  <ul
+    class="artist-tracks__list"
+    *ngIf="currentArtistTopTracks$ | async as currentArtistTopTracks"
+  >
+    <li
+      *ngFor="let track of currentArtistTopTracks"
+      class="artist-tracks__track"
+      (dblclick)="changeCurrentTrack(track, currentArtistTopTracks)"
+      (mouseover)="onMouseIn(track)"
+      (mouseout)="onMouseOut(track)"
+      [id]="track.id"
+    >
+      <div class="artist-tracks__info">
+        <p class="artist-tracks__name">{{ track.name }}</p>
+        <p class="artist-tracks__album">{{ track.album.name }}</p>
+      </div>
+      <svg class="artist-tracks__icon" *ngIf="currentTrack.id === track.id">
+        <use href="/assets/icons/sprite.svg#lineas" />
+      </svg>
+      <time class="artist-tracks__time">{{
+        track.duration_ms / 1000 | timeFormat
+      }}</time>
+      <svg
+        class="artist-tracks__icon artist-tracks__icon--plus"
+        (click)="toggleModal(targetModal, track)"
+        [class.artist-tracks__icon--hide]="
+          track.hidden || track.hidden === undefined
+        "
+      >
+        <use href="/assets/icons/sprite.svg#plus" />
+      </svg>
+    </li>
+  </ul>
+</ng-container>
 
-<app-reusable-modal #targetModal [title]="'Add to playlist'" [modalId]="" [isLarge]="false"
-  [modalVisible]="false" (close)="toggleModal(targetModal, '')">
+<app-reusable-modal
+  #targetModal
+  [title]="'Add to playlist'"
+  [modalId]=""
+  [isLarge]="false"
+  [modalVisible]="false"
+  (close)="toggleModal(targetModal)"
+>
   <ng-container *ngIf="targetModal.modalVisible">
-    <ul class="reusable-modal__list">
-      <li *ngFor="let playlist of playlists" class="reusable-modal__elem" (click)="addToPlaylist(playlist)" (click)="toggleModal(targetModal, '')">
+    <ul class="reusable-modal__list" *ngIf="playlists$ | async as playlists">
+      <li
+        *ngFor="let playlist of playlists"
+        class="reusable-modal__elem"
+        (click)="addToPlaylist(targetModal, playlist)"
+        (click)="toggleModal(targetModal)"
+      >
         {{ playlist.name }}
       </li>
     </ul>
-    <button type="button" (click)="openDialog()" (click)="toggleModal(targetModal, '')" class="reusable-modal__action">
+    <button
+      type="button"
+      (click)="openDialog()"
+      (click)="toggleModal(targetModal)"
+      class="reusable-modal__action"
+    >
       New playlist
     </button>
   </ng-container>

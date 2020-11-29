@@ -6,6 +6,9 @@ import { ModalService } from 'src/app/services/modal.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PlaylistsService } from 'src/app/services/playlists.service';
+import { Observable } from 'rxjs';
+import { Track } from 'src/app/shared/models/track';
+import { Playlist } from 'src/app/shared/models/playlist';
 
 
 @Component({
@@ -15,8 +18,12 @@ import { PlaylistsService } from 'src/app/services/playlists.service';
 })
 export class ArtistTracksComponent implements OnInit {
 
+  currentArtistTopTracks$: Observable<Track[]>;
+  currentTrack$: Observable<Track>;
+  playlists$: Observable<Playlist[]>;
+
   hidden: boolean = true;
-  selectedSongId: string = '';
+  selectedTrack: Track;
 
   constructor(
     private spotifyApi: SpotifyApiService,
@@ -27,29 +34,20 @@ export class ArtistTracksComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.spotifyApi.currentArtistTracks$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId);
+    this.currentArtistTopTracks$ = this.spotifyApi.currentArtistTopTracks$;
+    this.currentTrack$ =  this.playerService.currentTrack$;
+    this.playlists$ = this.playlistService.playlists$;
   }
 
-  get currentArtistTracks() {
-    return this.spotifyApi.currentArtistTracks$;
-  }
-  get currentTrack() {
-    return this.playerService.currentTrack$;
-  }
-
-  get playlists() {
-    return this.playlistService.playlists;
+  changeCurrentTrack(track: Track, topArtistTracks: Track[]) {
+    this.playerService.changePlayState(true);
+    this.playerService.changeSelectedQueue(topArtistTracks);
+    this.playerService.changeSelectedTrack(track);
   }
 
-  playSong(track: any) {
-    this.playerService.currentPlaylist$ = this.spotifyApi.getArtistTracks(this.spotifyApi.currentArtistId);
-    this.playerService.currentTrack$ = this.playerService.select(track);
-  }
-
-  async addToPlaylist(selectedPlaylist) {
-    const playlist = this.playlistService.playlists.find(playlist => playlist.name === selectedPlaylist.name);
-    const track = await this.spotifyApi.getTrack(this.playlistService.selectedSongId).toPromise();
-    playlist.tracks.push(track);
+  addToPlaylist(targetModal: ReusableModalComponent, playlist: Playlist) {
+    this.playlistService.addTrackToPlaylist(playlist, this.selectedTrack);
+    this.modalService.closeModal(targetModal);
   }
 
   onMouseIn(track) {
@@ -59,9 +57,10 @@ export class ArtistTracksComponent implements OnInit {
     track.hidden = true;
   }
 
-  toggleModal(targetModal: ReusableModalComponent, id: string) {
-    if (id) {
-      this.playlistService.selectedSongId = id;
+  toggleModal(targetModal: ReusableModalComponent, track?: Track) {
+    if (track) {
+      this.playlistService.changeSelectedTrackToBeAdded(track);
+      this.selectedTrack = track;
     }
     if (!targetModal.modalVisible) {
       this.modalService.openModal(targetModal);

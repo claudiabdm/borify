@@ -1,11 +1,15 @@
-
 .info {
   display: grid;
   grid-template-columns: repeat(3, rem(170px));
   gap: rem(20px);
   overflow: auto;
 
+  &--1col {
+    grid-template-columns: rem(510px);
+  }
+
   &__article {
+    position: relative;
     &:hover {
       cursor: pointer;
     }

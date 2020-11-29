@@ -3,8 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { PlaylistsService } from 'src/app/services/playlists.service';
 import { PlayerService } from 'src/app/services/player.service';
-import { of } from 'rxjs/internal/observable/of';
-import { map } from 'rxjs/internal/operators/map';
+import { Observable } from 'rxjs';
+import { Playlist } from 'src/app/shared/models/playlist';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-playlists',
@@ -13,28 +14,24 @@ import { map } from 'rxjs/internal/operators/map';
 })
 export class PlaylistsComponent implements OnInit {
 
+  playlists$: Observable<Playlist[]>;
+
   constructor(
     public dialog: MatDialog,
     private playlistService : PlaylistsService,
     private playerService: PlayerService) { }
 
   ngOnInit(): void {
-
+    this.playlists$ = this.playlistService.playlists$;
   }
 
-  get playlists() {
-    return this.playlistService.playlists;
+  onSelectPlaylist(playlist: Playlist) {
+    this.playlistService.changeSelectedPlaylist(playlist.id);
+    this.playerService.changeSelectedQueue(playlist.tracks);
   }
-
-  selectPlaylist(playlist) {
-    this.playerService.currentPlaylist$ = of(playlist.tracks);
-    this.playerService.currentTrack$ = this.playerService.currentPlaylist$.pipe(map((tracks: any) => tracks[0]));
-  }
-
 
   openDialog() {
     let dialogRef = this.dialog.open(ModalComponent, {panelClass: 'custom-dialog-container'});
-
   }
 
 

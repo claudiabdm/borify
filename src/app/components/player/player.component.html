@@ -1,42 +1,45 @@
-<nav class="player">
-
+<nav class="player" *ngIf="currentTrackAndQueue$ | async as currentTrackAndQueue">
   <div class="player__song-info">
-    <img class="player__cover" [src]="(currentTrack | async)?.album.images[0].url" width="40px" height="40px">
+    <img class="player__cover" [src]="currentTrackAndQueue.currentTrack?.album.images[0].url" width="40px" height="40px">
     <div class="player__track">
-      <p class="player__song-name">{{ (currentTrack | async)?.name }}</p>
-      <p class="player__artist">{{ (currentTrack | async)?.artists[0].name }}</p>
+      <p class="player__song-name">{{ currentTrackAndQueue.currentTrack?.name }}</p>
+      <p class="player__artist">{{ currentTrackAndQueue.currentTrack?.artists[0].name }}</p>
     </div>
   </div>
 
   <!-- PLAYER CONTROLS -->
   <div class="player__controls">
     <!-- SONG CONTROLS -->
-    <button type="button" class="player__control" (click)="onRandom()">
-      <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#aleatorio"/>
+    <button type="button" class="player__control" (click)="onRandom(currentTrackAndQueue.currentQueue)">
+      <svg class="player__icon" [class.player__icon--active]="random">
+        <use href="/assets/icons/sprite.svg#aleatorio"/>
       </svg>
     </button>
-    <button type="button" class="player__control" (click)="onPrev()">
+    <button type="button" class="player__control" (click)="onPrev(currentTrackAndQueue)">
       <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#anterior"/>
+        <use href="/assets/icons/sprite.svg#anterior"/>
       </svg>
     </button>
-    <button type="button" class="player__control player__control--circle" (click)="onPlay()">
-      <svg class="player__icon player__icon--circle" *ngIf="playing">
-        <use xlink:href="../../../assets/icons/sprite.svg#pausa"/>
-      </svg>
-      <svg class="player__icon player__icon--circle" *ngIf="!playing">
-        <use xlink:href="../../../assets/icons/sprite.svg#play"/>
-      </svg>
+    <button type="button" class="player__control player__control--circle" (click)="onPlay(player.paused)">
+      <ng-container  *ngIf="playing$ | async as playing else paused">
+        <svg class="player__icon player__icon--circle">
+          <use href="/assets/icons/sprite.svg#pausa"/>
+        </svg>
+      </ng-container>
+      <ng-template #paused>
+        <svg class="player__icon player__icon--circle">
+          <use href="/assets/icons/sprite.svg#play"/>
+        </svg>
+      </ng-template>
     </button>
-    <button type="button" class="player__control" (click)="onNext()">
+    <button type="button" class="player__control" (click)="onNext(currentTrackAndQueue)">
       <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#siguiente"/>
+        <use href="/assets/icons/sprite.svg#siguiente"/>
       </svg>
     </button>
     <button type="button" class="player__control" >
       <svg class="player__icon">
-        <use xlink:href="../../../assets/icons/sprite.svg#repetir"/>
+        <use href="/assets/icons/sprite.svg#repetir"/>
       </svg>
     </button>
     <!-- // SONG CONTROLS -->
@@ -46,7 +49,7 @@
   <!-- VOLUME -->
   <div class="player__volume">
     <svg class="player__icon player__control">
-      <use xlink:href="../../../assets/icons/sprite.svg#volumen" />
+      <use href="/assets/icons/sprite.svg#volumen" />
     </svg>
     <input type="range" min="0" max="1" value="0.5" step="0.1" class="player__volume-line" [(ngModel)]="player.volume">
   </div>
@@ -54,17 +57,17 @@
 
   <!-- SONG TIME -->
   <div class="player__time">
-    <div class="player__minute"> {{ currentTime }} </div>
-    <input type="range" min="0" [max]="songDurationNum" step="1" [(ngModel)]="currentSecond" class="player__time-line">
-    <div class="player__minute"> {{ (currentTrack | async)?.duration_ms / 1000 | timeFormat }}</div>
+    <div class="player__minute"> {{ currentTime }}</div>
+    <input type="range" min="0" [max]="currentTrackAndQueue.currentTrack?.duration_ms" step="1" [value]="currentSecond" (input)="onChangeTime($event)" class="player__time-line">
+    <div class="player__minute"> {{ currentTrackAndQueue.currentTrack?.duration_ms / 1000 | timeFormat }}</div>
   </div>
   <!-- // SONG TIME -->
 
-  <audio #player [src]="(currentTrack | async)?.preview_url" type="audio/mpeg" (timeupdate)="onUpdate($event)" (ended)="onNext()" (canplay)="onPlay()" crossOrigin="anonymous"></audio>
+  <audio #player [src]="currentTrackAndQueue.currentTrack?.preview_url" type="audio/mpeg" (timeupdate)="onUpdate($event)" (ended)="onNext(currentTrackAndQueue)" autoplay crossOrigin="anonymous"></audio>
 
  <!-- STACK -->
   <svg class="player__icon player__control" (click)="toggleModal(targetModal)">
-    <use xlink:href="../../../assets/icons/sprite.svg#lista" />
+    <use href="/assets/icons/sprite.svg#lista" />
   </svg>
   <!-- // STACK -->
 

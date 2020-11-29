@@ -6,11 +6,12 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, empty, throwError } from 'rxjs';
+import { Observable, empty, throwError, EMPTY } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { SpotifyApiService } from '../services/spotify-api.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SpotifyApiInterceptor implements HttpInterceptor {
@@ -25,18 +26,24 @@ export class SpotifyApiInterceptor implements HttpInterceptor {
     const authUrl = 'https://accounts.spotify.com/api/token';
     const token = this.storage.get('token');
 
-    if (request.url === authUrl || !token) {
-      return next.handle(request);
+    if (request.url === authUrl) {
+      const req = request.clone(
+        {
+          setHeaders: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': environment.spotifyApiBasicToken
+          }
+        })
+      return next.handle(req);
     }
 
     return next.handle(this.addToken(request, token))
       .pipe(
         catchError((err: HttpErrorResponse) => {
           if (err.status === 401) {
-            window.alert('Invalid token, retrieving a new one.')
-            location.reload();
+            alert('Invalid token, retrieving a new one.');
           }
-          return empty();
+          return EMPTY;
         })
       )
   }

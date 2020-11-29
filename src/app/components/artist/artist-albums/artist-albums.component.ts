@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SpotifyApiService } from 'src/app/services/spotify-api.service';
+import { Observable } from 'rxjs';
+import { Album } from 'src/app/shared/models/album';
 import { PlayerService } from 'src/app/services/player.service';
-import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-artist-albums',
   templateUrl: './artist-albums.component.html',
-  styleUrls: ['./artist-albums.component.scss']
+  styleUrls: ['./artist-albums.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArtistAlbumsComponent implements OnInit {
 
+  currentArtistAlbums$: Observable<Album[]>;
+  currentAlbum$: Observable<Album>;
 
   constructor(
     private spotifyApi: SpotifyApiService,
@@ -17,16 +21,12 @@ export class ArtistAlbumsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.spotifyApi.currentArtistAlbums$ = this.spotifyApi.getArtistAlbums(this.spotifyApi.currentArtistId)
+    this.currentArtistAlbums$ = this.spotifyApi.currentArtistAlbums$;
   }
 
-  get currentArtistAlbums() {
-    return this.spotifyApi.currentArtistAlbums$;
-  }
-
-  changeCurrentAlbumTracks(id: string) {
-    this.playerService.currentPlaylist$ = this.spotifyApi.getAlbumTracks(id);
-    this.playerService.currentTrack$ = this.spotifyApi.getAlbumTracks(id).pipe(map(tracks => tracks[0]));
+  changeCurrentAlbumTopTracks(album: Album): void {
+    this.playerService.changePreviousTrackFlag('firstAlbumTrack');
+    this.spotifyApi.changeSelectedAlbum(album.id);
   }
 
 }

@@ -1,15 +1,17 @@
-@import '../../../styles/mixins/mixins';
-@import '../../../styles/global/variables';
+@import "../../../styles/mixins/mixins";
+@import "../../../styles/global/variables";
 
 .player {
   @include size(100%);
   @include flex(center, flex-start);
   padding: 12px;
 
+  &__track {
+    @include size(rem(150px), auto);
+  }
   // SONG INFO
   &__song-info {
     @include flex(center, flex-start);
-    @include size(rem(220px), auto);
 
     .player__cover {
       margin-right: rem(15.78px);
@@ -18,25 +20,33 @@
     .player__song-name {
       font-size: rem(13px);
       font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .player__artist {
       font-size: rem(12px);
       font-weight: 400;
       opacity: 0.8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
-
   &__icon {
     @include flex(center, center);
-    @include size(rem(15px), rem(13px));
+    @include size(rem(15px), rem(15px));
     opacity: 0.65;
 
     &--circle {
       @include size(rem(9px), rem(10.43px));
     }
 
+    &--active {
+      opacity: 1;
+    }
   }
 
   &__controls {
@@ -46,7 +56,11 @@
 
   &__control {
     @include flex(center, center);
-    @include size(rem(15px), rem(13px));
+    width: rem(24px);
+
+    & + & {
+      margin-left: 10px;
+    }
 
     &:hover {
       cursor: pointer;
@@ -54,6 +68,11 @@
 
     &:focus > svg {
       opacity: 1;
+    }
+
+    &:last-child {
+      margin-left: auto;
+      margin-right: 0;
     }
 
     &--circle {
@@ -66,7 +85,7 @@
 
   &__volume {
     @include flex(center, flex-start);
-    margin-left: 44px;
+    margin-left: 34px;
     margin-right: 34px;
   }
 
@@ -80,7 +99,9 @@
 
   &__time {
     @include flex(center, center);
+    margin-left: auto;
     margin-right: 25px;
+    width: 100%;
   }
 
   &__minute {
@@ -89,11 +110,10 @@
   }
 
   &__time-line {
-    @include size(rem(686px), rem(3px));
+    @include size(100%, rem(3px));
     margin: 0 10px;
     border-radius: rem(3px);
     background-color: #fff;
     opacity: 0.35;
   }
-
 }

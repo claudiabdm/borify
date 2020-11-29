@@ -1,5 +1,5 @@
-@import '../../../styles/global/variables';
-@import '../../../styles/mixins/mixins';
+@import "../../../styles/global/variables";
+@import "../../../styles/mixins/mixins";
 
 .artist-tracks {
   font-size: rem(14px);
@@ -19,7 +19,7 @@
     overflow: auto;
     cursor: pointer;
 
-    &+& {
+    & + & {
       margin-top: 22px;
     }
 
@@ -27,11 +27,17 @@
       background-color: rgba($color: #181e28, $alpha: 0.31);
       border-radius: 4px;
     }
-
   }
 
   &__info {
+    width: rem(250px);
     margin-right: auto;
+  }
+
+  &__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__album {
@@ -61,6 +67,5 @@
     &--hide {
       opacity: 0;
     }
-
   }
 }

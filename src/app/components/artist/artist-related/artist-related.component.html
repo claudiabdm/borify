@@ -1,6 +1,6 @@
-<section class="info">
-  <article *ngFor="let related of currentArtistRelated | async" class="info__article" (click)=changeArtist(related.id)>
-    <img class="info__img" [src]="related.images[0]?.url || defaultImg " width="170px" height="170px" [alt]="related.name">
-    <h3 class="info__name">{{ related.name }}</h3>
+<section class="info" *ngIf="currentArtistRelated$ | async as currentArtistRelated">
+  <article *ngFor="let artist of currentArtistRelated" class="info__article" (click)=changeArtist(artist.id)>
+    <img class="info__img" [src]="artist.images[0]?.url || defaultImg " width="170px" height="170px" [alt]="artist.name">
+    <h3 class="info__name">{{ artist.name }}</h3>
   </article>
 </section>
