@@ -46,7 +46,8 @@ export class SpotifyApiService {
             addedItemsName.push(item.name);
           }
           return filtered;
-        }, []).sort((a, b) => new Date(a.release_date).getTime() - new Date(b.release_date).getTime());
+        }, []).sort((a, b) =>  new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
+        console.log(sortedAlbums);
         return sortedAlbums;
       }),
       shareReplay(1)
